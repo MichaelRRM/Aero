@@ -1,0 +1,6 @@
+﻿services:
+  aero:
+    image: aero
+    build:
+      context: .
+      dockerfile: Aero/Dockerfile
