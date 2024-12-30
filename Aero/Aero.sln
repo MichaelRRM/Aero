@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero", "Aero\Aero.csproj", "{C81D4989-3458-48DF-B1DD-F2E0DC247710}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.WebApi", "Aero.WebApi\Aero.WebApi.csproj", "{C81D4989-3458-48DF-B1DD-F2E0DC247710}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6301F0A7-6FDA-409D-B733-453764FB8C9B}"
 	ProjectSection(SolutionItems) = preProject
