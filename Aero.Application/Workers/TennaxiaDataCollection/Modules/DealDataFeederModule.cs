@@ -1,4 +1,4 @@
-﻿namespace Aero.Application.Workers.Modules;
+﻿namespace Aero.Application.Workers.TennaxiaDataCollection.Modules;
 
 public class DealDataFeederModule : IModule
 {

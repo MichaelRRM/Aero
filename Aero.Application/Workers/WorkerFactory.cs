@@ -4,9 +4,9 @@ namespace Aero.Application.Workers;
 
 public class WorkerFactory
 {
-    private readonly TennaxiaDataCollection _tennaxiaDataCollection;
+    private readonly TennaxiaDataCollection.TennaxiaDataCollection _tennaxiaDataCollection;
 
-    public WorkerFactory(TennaxiaDataCollection tennaxiaDataCollection)
+    public WorkerFactory(TennaxiaDataCollection.TennaxiaDataCollection tennaxiaDataCollection)
     {
         _tennaxiaDataCollection = tennaxiaDataCollection;
     }

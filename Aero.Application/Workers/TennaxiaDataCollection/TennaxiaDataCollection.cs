@@ -1,6 +1,6 @@
-using Aero.Application.Workers.Modules;
+using Aero.Application.Workers.TennaxiaDataCollection.Modules;
 
-namespace Aero.Application.Workers;
+namespace Aero.Application.Workers.TennaxiaDataCollection;
 
 public class TennaxiaDataCollection : Worker
 {

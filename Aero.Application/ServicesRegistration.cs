@@ -1,5 +1,6 @@
 using Aero.Application.Workers;
-using Aero.Application.Workers.Modules;
+using Aero.Application.Workers.TennaxiaDataCollection;
+using Aero.Application.Workers.TennaxiaDataCollection.Modules;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aero.Application;
