@@ -18,4 +18,9 @@ public partial class DealDatum : IAuditable
     public int? DataValueInt { get; set; }
 
     public int? DataValueBit { get; set; }
+
+    public DateTime AuditCreateDate { get; set; }
+    public string AuditCreateUser { get; set; } = null!;
+    public DateTime? AuditUpdateDate { get; set; }
+    public string? AuditUpdateUser { get; set; }
 }
