@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.WebApi", "Aero.WebApi\Aero.WebApi.csproj", "{C81D4989-3458-48DF-B1DD-F2E0DC247710}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6301F0A7-6FDA-409D-B733-453764FB8C9B}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yaml = compose.yaml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Worker", "Aero.Worker\Aero.Worker.csproj", "{94DC5140-60E8-4E5D-BFF6-502823E256D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,5 +22,12 @@ Global
 		{C81D4989-3458-48DF-B1DD-F2E0DC247710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C81D4989-3458-48DF-B1DD-F2E0DC247710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C81D4989-3458-48DF-B1DD-F2E0DC247710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94DC5140-60E8-4E5D-BFF6-502823E256D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94DC5140-60E8-4E5D-BFF6-502823E256D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94DC5140-60E8-4E5D-BFF6-502823E256D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94DC5140-60E8-4E5D-BFF6-502823E256D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
