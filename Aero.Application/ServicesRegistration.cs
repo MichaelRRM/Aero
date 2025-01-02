@@ -9,6 +9,7 @@ public static class ServicesRegistration
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         //workers
+        services.AddScoped<WorkerFactory>();
         services.AddScoped<TennaxiaDataCollection>();
         
         //modules

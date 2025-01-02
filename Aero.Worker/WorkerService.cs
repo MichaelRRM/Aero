@@ -25,8 +25,10 @@ namespace Aero.Worker
                 var workerName = _configuration["worker"] ?? throw new Exception("No worker specified. Please use --worker=<moduleName");
                 var moduleName = _configuration["module"] ?? throw new Exception("No module specified. Please use --module=<moduleName");
                 _logger.LogInformation($"Worker running at: {DateTimeOffset.Now} with application: {applicationName}, worker: {workerName}, module: {moduleName}");
-                
-                var worker = WorkerFactory.GetWorker(applicationName, workerName, serviceProvider: _serviceProvider);
+
+                using var scope = _serviceProvider.CreateScope();
+                var workerFactory = scope.ServiceProvider.GetRequiredService<WorkerFactory>();
+                var worker = workerFactory.GetWorker(applicationName, workerName);
                 var module = worker.GetModule(moduleName);
                 
                 await module.RunAsync();
@@ -35,7 +37,6 @@ namespace Aero.Worker
             {
                 Environment.ExitCode = 1;
                 _logger.LogError(e, $"An error occured during module execution.");
-                throw;
             }
             finally
             {
