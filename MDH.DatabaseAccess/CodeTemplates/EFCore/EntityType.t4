@@ -64,7 +64,7 @@ namespace <#= NamespaceHint #>;
         }
     }
 #>
-public partial class <#= EntityType.Name #>
+public partial class <#= EntityType.Name #> : IAuditable
 {
 <#
     var firstProperty = true;

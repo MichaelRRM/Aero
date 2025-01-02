@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MDH.DatabaseAccess.Models;
 
-public partial class DealDatum
+public partial class DealDatum : IAuditable
 {
     public int? DealId { get; set; }
 
