@@ -7,7 +7,7 @@
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       },
-      "commandLineArgs": "--module=test"
+      "commandLineArgs": "--application=MDH --worker=TennaxiaDataCollection --module=DealDataFeeder"
     }
   }
 }
