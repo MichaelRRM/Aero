@@ -1,4 +1,4 @@
-using Datahub.Application;
+using Aero.Application;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);

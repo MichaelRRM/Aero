@@ -1,5 +1,5 @@
+using Aero.Application;
 using Aero.Worker;
-using Datahub.Application;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();

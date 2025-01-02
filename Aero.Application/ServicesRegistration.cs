@@ -1,7 +1,7 @@
-using Datahub.Application.Workers;
+using Aero.Application.Workers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Datahub.Application;
+namespace Aero.Application;
 
 public static class ServicesRegistration
 {

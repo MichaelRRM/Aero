@@ -11,6 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Datahub.Application\Datahub.Application.csproj" />
+    <ProjectReference Include="..\Aero.Application\Aero.Application.csproj" />
   </ItemGroup>
 </Project>
