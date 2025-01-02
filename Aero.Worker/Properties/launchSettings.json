@@ -6,7 +6,8 @@
       "dotnetRunMessages": true,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
-      }
+      },
+      "commandLineArgs": "--module=test"
     }
   }
 }
