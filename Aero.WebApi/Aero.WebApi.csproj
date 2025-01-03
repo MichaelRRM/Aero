@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Aero.Application\Aero.Application.csproj" />
+      <ProjectReference Include="..\Aero.Base\Aero.Base.csproj" />
     </ItemGroup>
 
 </Project>
