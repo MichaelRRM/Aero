@@ -2,13 +2,24 @@ using Aero.Application;
 using Aero.Base;
 using Aero.WebApi;
 using Scalar.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) => {
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .WriteTo.Console()
+        .WriteTo.File(path: @$"{Path.GetTempPath()}/AeroLogs/aero.webapi-.txt", rollingInterval: RollingInterval.Day);
+});
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddServices();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, ApiUserService>();
 
 var app = builder.Build();
@@ -39,6 +50,8 @@ app.MapGet("/weatherforecast", () =>
         return forecast;
     })
     .WithName("GetWeatherForecast");
+
+app.UseSerilogRequestLogging();
 
 app.Run();
 

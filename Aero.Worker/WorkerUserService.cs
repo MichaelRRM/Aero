@@ -13,6 +13,6 @@ public class WorkerUserService : IUserService
 
     public string GetUserName()
     {
-        return _configuration["userName"] ?? System.Environment.UserName;
+        return _configuration["userName"] ?? Environment.UserName;
     }
 }
