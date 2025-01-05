@@ -1,7 +1,7 @@
 {
 	"ConnectionStrings": {
 		"MDH": {
-			"LOCAL": "XXX",
+			"LOCAL": "Server=(localdb)\\MSSQLLocalDB;Database=MDH",
 			"DEV": "YYY"
 		}
 	}

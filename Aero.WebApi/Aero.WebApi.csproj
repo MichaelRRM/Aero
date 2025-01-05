@@ -20,6 +20,9 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Include="..\Configuration\apis.json">
+        <Link>apis.json</Link>
+      </Content>
       <Content Include="..\Configuration\serilog.json">
         <Link>serilog.json</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
