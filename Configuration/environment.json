@@ -1,0 +1,11 @@
+{
+	"Environment" : {
+		"Databases": {
+			"MDH": "LOCAL"
+		},
+		"Apis": {
+			"ElasticSearch": "LOCAL",
+			"Tennaxia": "LOCAL"
+		}
+	}
+}

@@ -6,13 +6,16 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, services, configuration) => {
+//builder.Configuration.AddJsonFile(Path.Combine(AppContext.BaseDirectory, "serilog.json"), optional: false, reloadOnChange: true);
+
+builder.Host.UseSerilog((context, services, configuration) =>
+{
     configuration
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
         .Enrich.FromLogContext()
         .WriteTo.Console()
-        .WriteTo.File(path: @$"{Path.GetTempPath()}/AeroLogs/aero.webapi-.txt", rollingInterval: RollingInterval.Day);
+        .WriteTo.File(path: @$"{Path.GetTempPath()}/AeroLogs/aero.webapi-.txt");
 });
 
 // Add services to the container.
@@ -25,7 +28,7 @@ builder.Services.AddScoped<IUserService, ApiUserService>();
 var app = builder.Build();
 
 app.MapOpenApi();
-app.MapScalarApiReference(o => 
+app.MapScalarApiReference(o =>
     o.WithTheme(ScalarTheme.Default)
         .WithEndpointPrefix("api/{documentName}")
 );

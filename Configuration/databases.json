@@ -1,0 +1,8 @@
+{
+	"ConnectionStrings": {
+		"MDH": {
+			"LOCAL": "XXX",
+			"DEV": "YYY"
+		}
+	}
+}

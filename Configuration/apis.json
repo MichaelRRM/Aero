@@ -1,0 +1,26 @@
+{
+	"Apis": {
+		"ElasticSearch": {
+			"LOCAL": {
+				"URL": "XXX"
+			},
+			"DEV": {
+				"URL": "XXX"
+			}
+		},
+		"Tennaxia": {
+			"LOCAL": {
+				"URL": "XXX",
+				"Token": "YYY"
+			},
+			"DEV": {
+				"URL": "XXX",
+				"Token": "YYY"
+			},
+			"PROD": {
+				"URL": "XXX",
+				"Token": "YYY"
+			}
+		}
+	}
+}
