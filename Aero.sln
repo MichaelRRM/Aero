@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Configuration\serilog.json = Configuration\serilog.json
 		Configuration\apis.json = Configuration\apis.json
 		Configuration\databases.json = Configuration\databases.json
-		Configuration\environment.DEV.json = Configuration\environment.DEV.json
+		Configuration\environment.Development.json = Configuration\environment.Development.json
 		Configuration\environment.json = Configuration\environment.json
 	EndProjectSection
 EndProject
