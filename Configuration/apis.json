@@ -10,7 +10,7 @@
 		},
 		"Tennaxia": {
 			"LOCAL": {
-				"URL": "XXX",
+				"URL": "https://api.github.com/",
 				"Token": "YYY"
 			},
 			"DEV": {

@@ -6,6 +6,7 @@ using Aero.Application.Workers.TennaxiaDataCollection.Modules;
 using MDH.DatabaseAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tennaxia.ApiAccess;
 
 namespace Aero.Application;
 
@@ -13,6 +14,10 @@ public static class ServicesRegistration
 {
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        //api 
+        services.AddTennaxiaApiClient(configuration);
+        
+        //databases
         services.AddMdhDbContext(configuration);
         
         //workers
