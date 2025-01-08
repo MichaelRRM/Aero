@@ -1,3 +1,7 @@
+using Aero.Application;
+using Aero.Base;
+using Aero.Worker.WebApi;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var aspnetCoreEnvironment = builder.Environment.EnvironmentName; 
@@ -11,6 +15,10 @@ builder.Configuration
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddServices(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserService, WorkerApiUserService>();
+builder.Services.AddScoped<IWorkerRunner, WorkerRunner>();
 
 var app = builder.Build();
 

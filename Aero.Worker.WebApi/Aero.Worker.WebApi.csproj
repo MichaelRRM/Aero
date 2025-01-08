@@ -38,4 +38,8 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Aero.Application\Aero.Application.csproj" />
+    </ItemGroup>
+
 </Project>
