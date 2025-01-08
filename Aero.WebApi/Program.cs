@@ -6,12 +6,12 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var environment = builder.Environment.EnvironmentName; 
+var aspnetCoreEnvironment = builder.Environment.EnvironmentName; 
 builder.Configuration
-    .AddJsonFile("apis.json", optional: false, reloadOnChange: true)
-    .AddJsonFile("databases.json", optional: false, reloadOnChange: true)
-    .AddJsonFile("environment.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"environment.{environment}.json", optional: false, reloadOnChange: true);
+    .AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}/Configuration/apis.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}/Configuration/databases.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}/Configuration/environment.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}/Configuration/environment.{aspnetCoreEnvironment}.json", optional: true, reloadOnChange: true);
     //.AddJsonFile("serilog.json", optional: false, reloadOnChange: true);
 
 builder.Host.UseSerilog((context, services, configuration) =>

@@ -1,3 +1,4 @@
+using Aero.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +9,7 @@ public static class MdhDbContextRegistration
 {
     public static IServiceCollection AddMdhDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("MdhConnectionString");
+        var connectionString = ConnectionHelper.GetConnectionString(configuration, "MDH");
         
         services.AddDbContext<MdhDbContext>(options =>
         {

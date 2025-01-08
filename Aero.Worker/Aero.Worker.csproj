@@ -18,4 +18,28 @@
     <ProjectReference Include="..\Aero.Application\Aero.Application.csproj" />
     <ProjectReference Include="..\Aero.Base\Aero.Base.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Configuration\apis.json">
+      <Link>Configuration\apis.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Configuration\databases.json">
+      <Link>Configuration\databases.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Configuration\environment.json">
+      <Link>Configuration\environment.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Configuration\environment.Development.json">
+      <Link>Configuration\environment.Development.json</Link>
+      <DependentUpon>environment.json</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Configuration\serilog.json">
+      <Link>Configuration\serilog.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
