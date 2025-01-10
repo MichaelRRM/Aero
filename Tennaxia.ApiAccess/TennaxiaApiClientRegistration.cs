@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,7 @@ public static class TennaxiaApiClientRegistration
             var token = configuration[$"Apis:Tennaxia:{apiEnvironment}:Token"] ?? throw new Exception($"Couldn't get api token for Tennaxia in environment {apiEnvironment}");
 
             httpClient.BaseAddress = new Uri(url);
-            //httpClient.DefaultRequestHeaders.Add("Authorization", token);
+            httpClient.DefaultRequestHeaders.Add("private-token", token);
         });
         return services;
     }

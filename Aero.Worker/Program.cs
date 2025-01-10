@@ -1,6 +1,7 @@
 using Aero.Application;
 using Aero.Base;
 using Aero.Worker;
+using Serilog;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Configuration
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddScoped<IUserService, WorkerUserService>();
 builder.Services.AddHostedService<WorkerService>();
+builder.Services.AddLogging(logBuilder => logBuilder.AddSerilog());
 
 var host = builder.Build();
 host.Run();
