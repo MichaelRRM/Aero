@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, TranslateModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,6 +17,12 @@ export class AppComponent {
   isDarkMode = false;
 
   showSettingsMenu = false;
+
+  constructor(private translate: TranslateService){
+    this.translate.addLangs(['fr', 'en']);
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
+  }
 
   toggleSettingsMenu() {
     this.showSettingsMenu = !this.showSettingsMenu;

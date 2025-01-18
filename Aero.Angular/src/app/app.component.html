@@ -1,44 +1,37 @@
-<div
-[class.dark]="isDarkMode">
-<div   class="relative min-h-screen flex flex-col items-center justify-center
-bg-white dark:bg-slate-900 text-slate-900 dark:text-white
-transition-colors duration-300">
-  <h1 class="text-6xl font-bold">Aero</h1>
+<div [class.dark]="isDarkMode">
+  <div
+    class="relative min-h-screen flex flex-col items-center justify-center bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300"
+  >
+    <h1 class="text-6xl font-bold">Aero</h1>
 
-  <div class="absolute top-4 right-4">
-    <div class="relative">
-      <button
-        #avatarButtonRef
-        class="w-10 h-10 flex items-center justify-center
-               rounded-full bg-primary text-gray-200 dark:text-gray-200
-               hover:opacity-80 transition-opacity"
-        (click)="toggleSettingsMenu()"
-      >
-        MM
-      </button>
+    <div class="absolute top-4 right-4">
+      <div class="relative">
+        <button
+          #avatarButtonRef
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-gray-200 dark:text-gray-200 hover:opacity-80 transition-opacity"
+          (click)="toggleSettingsMenu()"
+        >
+          MM
+        </button>
 
-      <div
-        *ngIf="showSettingsMenu"
-        #settingsMenuRef
-        class="absolute right-0 top-full mt-2 p-4 w-40
-               bg-white dark:bg-gray-800
-               border border-gray-300 dark:border-gray-600
-               rounded shadow-md"
-      >
-        <div class="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            [checked]="isDarkMode"
-            (change)="toggleDarkMode($any($event.target).checked)"
-            class="cursor-pointer"
-          />
-          <label class="cursor-pointer select-none">
-            Dark
-          </label>
+        <div
+          *ngIf="showSettingsMenu"
+          #settingsMenuRef
+          class="absolute right-0 top-full mt-2 p-4 w-40 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md"
+        >
+          <div class="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              [checked]="isDarkMode"
+              (change)="toggleDarkMode($any($event.target).checked)"
+              class="cursor-pointer"
+            />
+            <label class="cursor-pointer select-none">
+              {{ "HOME.DARK" | translate }}
+            </label>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-
