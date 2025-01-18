@@ -19,4 +19,9 @@ public class WorkerFactory
             _ => throw new ArgumentException($"Unknown worker {workerName} in domain {applicationName}")
         };
     }
+
+    public IEnumerable<IWorker> GetWorkers()
+    {
+        yield return _tennaxiaDataCollection;
+    }
 }

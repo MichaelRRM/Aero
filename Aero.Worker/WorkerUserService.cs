@@ -1,4 +1,5 @@
 using Aero.Base;
+using Aero.Base.Constants;
 
 namespace Aero.Worker;
 
@@ -13,6 +14,6 @@ public class WorkerUserService : IUserService
 
     public string GetUserName()
     {
-        return _configuration["userName"] ?? Environment.UserName;
+        return _configuration[$"{WorkerArgumentNames.UserName}"] ?? Environment.UserName;
     }
 }

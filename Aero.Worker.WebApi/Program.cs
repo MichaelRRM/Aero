@@ -1,6 +1,7 @@
 using Aero.Application;
 using Aero.Base;
 using Aero.Worker.WebApi;
+using Scalar.AspNetCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,11 +34,11 @@ builder.Services.AddScoped<IWorkerRunner, WorkerRunner>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.MapOpenApi();
+app.MapScalarApiReference(o =>
+    o.WithTheme(ScalarTheme.Default)
+        .WithEndpointPrefix("api/{documentName}")
+);
 
 app.UseHttpsRedirection();
 

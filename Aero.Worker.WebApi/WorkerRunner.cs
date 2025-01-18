@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Aero.Base;
+using Aero.Base.Constants;
 
 namespace Aero.Worker.WebApi;
 
@@ -24,7 +25,7 @@ public class WorkerRunner : IWorkerRunner
             var processStartInfo = new ProcessStartInfo
             {
                 //TODO 
-                Arguments = $"{workerPath} --userName={userName} --guid={guid}",
+                Arguments = $"{workerPath} --{WorkerArgumentNames.UserName}={userName} --{WorkerArgumentNames.Guid}={guid}",
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",

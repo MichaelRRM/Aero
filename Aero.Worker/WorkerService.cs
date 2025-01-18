@@ -1,4 +1,5 @@
 using Aero.Application.Workers;
+using Aero.Base.Constants;
 
 namespace Aero.Worker
 {
@@ -21,10 +22,12 @@ namespace Aero.Worker
         {
             try
             {
-                var applicationName = _configuration["application"] ?? throw new Exception("No application specified. Please use --module=<moduleName");
-                var workerName = _configuration["worker"] ?? throw new Exception("No worker specified. Please use --worker=<moduleName");
-                var moduleName = _configuration["module"] ?? throw new Exception("No module specified. Please use --module=<moduleName");
-                _logger.LogInformation($"Worker running at: {DateTimeOffset.Now} with application: {applicationName}, worker: {workerName}, module: {moduleName}");
+                var applicationName = _configuration[$"{WorkerArgumentNames.Application}"] ?? throw new Exception($"No application specified. Please use --{WorkerArgumentNames.Application}=<applicationName>");
+                var workerName = _configuration[$"{WorkerArgumentNames.WorkerName}"] ?? throw new Exception($"No worker specified. Please use --{WorkerArgumentNames.WorkerName}=<workerName>");
+                var moduleName = _configuration[$"{WorkerArgumentNames.ModuleName}"] ?? throw new Exception($"No module specified. Please use --{WorkerArgumentNames.ModuleName}=<moduleName>");
+                var environment = _configuration[$"{WorkerArgumentNames.WorkerEnvironment}"];
+                var user = _configuration[$"{WorkerArgumentNames.UserName}"];
+                _logger.LogInformation($"Worker running at: {DateTimeOffset.Now} with application: {applicationName}, worker: {workerName}, module: {moduleName}, environment: {environment}, user: {user}");
 
                 using var scope = _serviceProvider.CreateScope();
                 var workerFactory = scope.ServiceProvider.GetRequiredService<WorkerFactory>();
