@@ -8,6 +8,7 @@ module.exports = {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
         accent: 'var(--color-accent)',
+        text: 'var(--color-text)',
       },
     },
   },

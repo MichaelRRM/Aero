@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -10,6 +10,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  @ViewChild('avatarButtonRef') avatarButtonRef!: ElementRef;
+  @ViewChild('settingsMenuRef') settingsMenuRef!: ElementRef;
+
   isDarkMode = false;
 
   showSettingsMenu = false;
@@ -20,5 +23,17 @@ export class AppComponent {
 
   toggleDarkMode(event: boolean) {
     this.isDarkMode = event;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.showSettingsMenu) return;
+
+    const clickedInsideMenu = this.settingsMenuRef?.nativeElement.contains(event.target);
+    const clickedAvatarButton = this.avatarButtonRef?.nativeElement.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedAvatarButton) {
+      this.showSettingsMenu = false;
+    }
   }
 }

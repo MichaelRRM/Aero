@@ -7,6 +7,7 @@
   --color-primary: #8a2fa4;
   --color-secondary: #23394d;
   --color-accent: #00899c;
+  --color-text: #1e293b;
 }
 
 /* Dark theme overrides */
@@ -14,4 +15,5 @@
   --color-primary: #5d216f;
   --color-secondary: #1b2a37;
   --color-accent: #007080;
+  --color-text: #ffffff;
 }
