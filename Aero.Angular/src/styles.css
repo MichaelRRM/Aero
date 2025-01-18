@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default theme (light) */
+:root {
+  --color-primary: #8a2fa4;
+  --color-secondary: #23394d;
+  --color-accent: #00899c;
+}
+
+/* Dark theme overrides */
+.dark {
+  --color-primary: #5d216f;
+  --color-secondary: #1b2a37;
+  --color-accent: #007080;
+}
