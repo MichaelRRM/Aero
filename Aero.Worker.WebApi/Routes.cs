@@ -3,9 +3,9 @@
 public static class Routes
 {
     private const string AdminTag = "Admin";
-    public static void ConfigureRoutes(this WebApplication webApplication)
+    public static void ConfigureRoutes(this RouteGroupBuilder routeGroup)
     {
-        webApplication.MapGet("/status", () => "worker api is working!")
+        routeGroup.MapGet("/status", () => "worker api is working!")
             .WithTags(AdminTag)
             .WithOpenApi();
     }

@@ -1,6 +1,7 @@
 using Aero.Application;
 using Aero.Base;
 using Aero.Worker.WebApi;
+using Asp.Versioning;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -32,6 +33,18 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, WorkerApiUserService>();
 builder.Services.AddScoped<IWorkerRunner, WorkerRunner>();
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new UrlSegmentApiVersionReader(),
+        new HeaderApiVersionReader("X-Api-Version"),
+        new QueryStringApiVersionReader("api-version")
+    );
+});
+
 var app = builder.Build();
 
 app.MapOpenApi();
@@ -42,6 +55,10 @@ app.MapScalarApiReference(o =>
 
 app.UseHttpsRedirection();
 
-app.ConfigureRoutes();
+var v1Routes = app.NewVersionedApi("MyApi")
+    .MapGroup("/api/v{version:apiVersion}")
+    .HasApiVersion(new ApiVersion(1, 0));
+
+v1Routes.ConfigureRoutes();
 
 app.Run();

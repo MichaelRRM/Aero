@@ -11,22 +11,22 @@ public static class Routes
     private const string UserTag = "User";
     private const string AdminTag = "Admin";
 
-    public static void ConfigureRoutes(this WebApplication webApplication)
+    public static void ConfigureRoutes(this RouteGroupBuilder routeGroup)
     {
-        webApplication.MapGet("/status", () => "api is working!")
+        routeGroup.MapGet("/status", () => "api is working!")
             .WithTags(AdminTag)
             .WithOpenApi();
         
-        webApplication.MapGet("/user", (IUserService userService) => userService.GetUserName())
+        routeGroup.MapGet("/user", (IUserService userService) => userService.GetUserName())
             .WithTags(UserTag)
             .WithOpenApi();
         
-        webApplication.MapGroup("/deals")
+        routeGroup.MapGroup("/deals")
             .MapDealsApi()
             .WithTags(DealsTag)
             .WithOpenApi();
         
-        webApplication.MapGroup("/data-points")
+        routeGroup.MapGroup("/data-points")
             .MapDataPointApi()
             .WithTags(DataPointTag)
             .WithOpenApi();
