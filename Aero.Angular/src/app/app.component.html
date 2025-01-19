@@ -1,26 +1,21 @@
 <div [class.dark]="(settings.settings$ | async)?.darkMode">
-  <div
-  class="relative min-h-screen flex flex-col items-center justify-center bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300"
->
-  <div class="absolute top-4 right-4">
-    <div class="relative">
-      <button
-        #avatarButtonRef
-        class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-gray-200 dark:text-gray-200 hover:opacity-80 transition-opacity"
-        (click)="toggleSettingsMenu()"
-      >
-        MM
-      </button>
-
-      @if (showSettingsMenu) {
-      <app-settings-menu />
-      }
+  <div class="relative min-h-screen h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
+    <div class="absolute top-4 right-4">
+      <div class="relative">
+        <button
+          #avatarButtonRef
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-gray-200 dark:text-gray-200 hover:opacity-80 transition-opacity"
+          (click)="toggleSettingsMenu()"
+        >
+          MM
+        </button>
+        @if (showSettingsMenu) {
+          <app-settings-menu />
+        }
+      </div>
+    </div>
+    <div class="h-screen">
+      <router-outlet />
     </div>
   </div>
-
-  <main>
-    <router-outlet />
-  </main>
-
-</div>
 </div>
