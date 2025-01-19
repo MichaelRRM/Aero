@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, TranslateModule],
+  imports: [RouterOutlet, CommonModule, TranslateModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -15,7 +16,7 @@ export class AppComponent {
   @ViewChild('settingsMenuRef') settingsMenuRef!: ElementRef;
 
   isDarkMode = false;
-
+  selectedLanguage = 'en'; 
   showSettingsMenu = false;
 
   constructor(private translate: TranslateService){
@@ -31,6 +32,13 @@ export class AppComponent {
   toggleDarkMode(event: boolean) {
     this.isDarkMode = event;
   }
+
+  onLanguageChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedLanguage = selectElement.value;
+
+    this.translate.use(this.selectedLanguage)  
+}
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {

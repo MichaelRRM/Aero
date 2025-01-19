@@ -1,5 +1,8 @@
 {
   "HOME": {
-      "DARK": "Sombre"
+    "SETTINGS": {
+      "DARK": "Mode Sombre",
+      "LANGUAGE": "Langue"
+    }
   }
 }

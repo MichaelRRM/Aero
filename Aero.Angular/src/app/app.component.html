@@ -15,22 +15,46 @@
         </button>
 
         <div
-          *ngIf="showSettingsMenu"
-          #settingsMenuRef
-          class="absolute right-0 top-full mt-2 p-4 w-40 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md"
-        >
-          <div class="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              [checked]="isDarkMode"
-              (change)="toggleDarkMode($any($event.target).checked)"
-              class="cursor-pointer"
-            />
-            <label class="cursor-pointer select-none">
-              {{ "HOME.DARK" | translate }}
-            </label>
-          </div>
+        *ngIf="showSettingsMenu"
+        #settingsMenuRef
+        class="absolute right-0 top-full mt-2 w-56 p-4
+               bg-white dark:bg-gray-800
+               border border-gray-300 dark:border-gray-600
+               rounded shadow-md"
+      >
+        <div class="mb-4 text-center">
+          <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Michael MOORE
+          </p>
         </div>
+      
+        <hr class="my-2 border-gray-300 dark:border-gray-600" />
+      
+        <div class="flex items-center justify-between my-4">
+          <label class="text-gray-800 dark:text-gray-200">{{ "HOME.SETTINGS.DARK" | translate }}</label>
+          <input
+            type="checkbox"
+            [checked]="isDarkMode"
+            (change)="toggleDarkMode($any($event.target).checked)"
+            class="cursor-pointer"
+          />
+        </div>
+      
+        <hr class="my-2 border-gray-300 dark:border-gray-600" />
+      
+        <div class="flex items-center justify-between">
+          <label class="text-gray-800 dark:text-gray-200">{{ "HOME.SETTINGS.LANGUAGE" | translate }}</label>
+          <select
+            [(ngModel)]="selectedLanguage"
+            (change)="onLanguageChange($event)"
+            class="p-1 rounded border border-gray-300 dark:border-gray-600
+                   bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+          >
+            <option value="en">English</option>
+            <option value="fr">French</option>
+          </select>
+        </div>
+      </div>
       </div>
     </div>
   </div>
