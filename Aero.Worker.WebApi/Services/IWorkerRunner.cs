@@ -1,4 +1,4 @@
-namespace Aero.Worker.WebApi;
+namespace Aero.Worker.WebApi.Services;
 
 public interface IWorkerRunner
 {

@@ -2,11 +2,14 @@ namespace Aero.Application.Workers;
 
 public abstract class Worker : IWorker
 {
-    protected abstract IEnumerable<IModule> GetModules();
-    
+    public abstract IEnumerable<IModule> Modules();
+
+    public abstract string Name { get; }
+    public abstract string Description { get; }
+
     public IModule GetModule(string moduleName)
     {
-        var modules = GetModules();
+        var modules = Modules();
         var module = modules.FirstOrDefault(m => m.Name == moduleName);
         if (module == null)
         {

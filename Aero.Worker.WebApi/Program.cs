@@ -1,6 +1,7 @@
 using Aero.Application;
 using Aero.Base;
 using Aero.Worker.WebApi;
+using Aero.Worker.WebApi.Services;
 using Asp.Versioning;
 using Scalar.AspNetCore;
 using Serilog;
@@ -32,6 +33,7 @@ builder.Services.AddServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, WorkerApiUserService>();
 builder.Services.AddScoped<IWorkerRunner, WorkerRunner>();
+builder.Services.AddScoped<IWorkerService, WorkerService>();
 
 builder.Services.AddApiVersioning(options =>
 {

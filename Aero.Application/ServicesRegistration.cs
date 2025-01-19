@@ -22,7 +22,7 @@ public static class ServicesRegistration
         
         //workers
         services.AddScoped<WorkerFactory>();
-        services.AddScoped<TennaxiaDataCollection>();
+        services.AddScoped<TennaxiaDataCollectionWorker>();
         
         //modules
         services.AddScoped<DealDataFeederModule>();

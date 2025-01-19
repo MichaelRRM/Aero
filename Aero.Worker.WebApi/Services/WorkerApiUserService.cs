@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Aero.Base;
 
-namespace Aero.Worker.WebApi;
+namespace Aero.Worker.WebApi.Services;
 
 public class WorkerApiUserService : IUserService
 {

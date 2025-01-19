@@ -46,6 +46,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Aero.Application\Aero.Application.csproj" />
+      <ProjectReference Include="..\Aero.Worker\Aero.Worker.csproj" />
     </ItemGroup>
 
 </Project>

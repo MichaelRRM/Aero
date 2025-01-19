@@ -6,11 +6,12 @@ namespace Aero.Application.Workers.TennaxiaDataCollection.Modules;
 public class DealDataFeederModule : IModule
 {
     public string Name => "DealDataFeeder";
+    public string Description => "Imports data points for deals from Tennaxia into MDH";
 
     public StringArgument CampaignId { get; } = new(
         name: "CampaignId",
         isRequired: true,
-        description: "Campaign ID"
+        description: "Tennaxia ID of the campaign to import."
     );
 
     private readonly TennaxiaApiClient _tennaxiaApiClient;

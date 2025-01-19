@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Aero.Base;
 using Aero.Base.Constants;
 
-namespace Aero.Worker.WebApi;
+namespace Aero.Worker.WebApi.Services;
 
 public class WorkerRunner : IWorkerRunner
 {

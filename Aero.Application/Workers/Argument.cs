@@ -24,7 +24,7 @@ public abstract class Argument<T>
     public bool IsRequired { get; }
     public bool HasDefaultValue { get; }
     public T? DefaultValue { get; }
-    public string Description { get;}
+    public string Description { get; }
 
     public T? GetValue(IConfiguration configuration)
     {
@@ -35,23 +35,17 @@ public abstract class Argument<T>
         {
             return configuration.GetValue<T>(Name) ?? throw new Exception($"Couldn't parse value {argumentAsString} for argument {Name}");
         }
-        else
+
+        if (HasDefaultValue)
         {
-            if (HasDefaultValue)
-            {
-                return DefaultValue;
-            }
-            else
-            {
-                if (IsRequired)
-                {
-                    throw new ArgumentException($"Required argument {Name} is missing.");
-                }
-                else
-                {
-                    return default;
-                }
-            }
+            return DefaultValue;
         }
+
+        if (IsRequired)
+        {
+            throw new ArgumentException($"Required argument {Name} is missing.");
+        }
+
+        return default;
     }
 }
