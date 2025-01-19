@@ -8,22 +8,21 @@ public abstract class Argument<T>
     {
         Name = name;
         IsRequired = isRequired;
-        _hasDefaultValue = false;
+        HasDefaultValue = false;
         Description = description;
     }
     protected Argument(string name, bool isRequired, T defaultValue, string description)
     {
         Name = name;
         IsRequired = isRequired;
-        _hasDefaultValue = true;
+        HasDefaultValue = true;
         DefaultValue = defaultValue;
         Description = description;
     }
     
-    private bool _hasDefaultValue;
-
     public string Name { get; }
     public bool IsRequired { get; }
+    public bool HasDefaultValue;
     public T? DefaultValue { get; }
     public string Description { get; }
 
@@ -37,7 +36,7 @@ public abstract class Argument<T>
             return configuration.GetValue<T>(Name) ?? throw new Exception($"Couldn't parse value {argumentAsString} for argument {Name}");
         }
 
-        if (_hasDefaultValue)
+        if (HasDefaultValue)
         {
             return DefaultValue;
         }

@@ -60,7 +60,7 @@ public class WorkerService : IWorkerService
                      Name: a.Name,
                      Description: a.Description,
                      Type: "string",
-                     DefaultValue: a.DefaultValue.ToString(),
+                     DefaultValue: a.HasDefaultValue ? a.DefaultValue.ToString() : null,
                      IsRequired: a.IsRequired)
                  ))
         {
