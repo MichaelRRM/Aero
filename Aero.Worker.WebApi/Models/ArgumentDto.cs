@@ -4,5 +4,6 @@ public record ArgumentDto(
     string Name, 
     string Description, 
     string Type, 
-    string? DefaultValue
+    string? DefaultValue,
+    bool IsRequired
     );

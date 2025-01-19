@@ -33,17 +33,38 @@ public class WorkerService : IWorkerService
 
     private IEnumerable<ArgumentDto> GetArguments(IModule module)
     {
-        var arguments = module.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        var stringArguments = module.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
             //TODO handle generic arguments 
             .Where(p => p.PropertyType.IsAssignableFrom(typeof(StringArgument)))
             .Select(p => p.GetValue(module))
             .Cast<StringArgument>();
 
-        return arguments.Select(a => new ArgumentDto(
-            Name: a.Name,
-            Description: a.Description, 
-            Type: "string",
-            DefaultValue: a.DefaultValue?.ToString())
-        );
+        foreach (var stringArgument in stringArguments.Select(a => new ArgumentDto(
+                     Name: a.Name,
+                     Description: a.Description,
+                     Type: "string",
+                     DefaultValue: a.DefaultValue?.ToString(),
+                     IsRequired: a.IsRequired)
+                 ))
+        {
+            yield return stringArgument;
+        }
+
+        var dateArguments = module.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            //TODO handle generic arguments 
+            .Where(p => p.PropertyType.IsAssignableFrom(typeof(DateOnlyArgument)))
+            .Select(p => p.GetValue(module))
+            .Cast<DateOnlyArgument>();
+
+        foreach (var stringArgument in dateArguments.Select(a => new ArgumentDto(
+                     Name: a.Name,
+                     Description: a.Description,
+                     Type: "string",
+                     DefaultValue: a.DefaultValue.ToString(),
+                     IsRequired: a.IsRequired)
+                 ))
+        {
+            yield return stringArgument;
+        }
     }
 }

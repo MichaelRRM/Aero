@@ -26,6 +26,7 @@ public static class ServicesRegistration
         
         //modules
         services.AddScoped<DealDataFeederModule>();
+        services.AddScoped<TestModule>();
         
         //api services 
         services.AddScoped<IDealsApiService, DealsApiService>();
