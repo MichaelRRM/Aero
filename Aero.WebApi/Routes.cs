@@ -1,15 +1,26 @@
 using Aero.Application.ApiServices;
 using Aero.Application.ApiServices.Models;
+using Aero.Base;
 
 namespace Aero.WebApi;
 
 public static class Routes
 {
     private const string DealsTag = "Deals";
-    private const string DataPointTag = "DataPoint";
+    private const string DataPointTag = "DataPoints";
+    private const string UserTag = "User";
+    private const string AdminTag = "Admin";
 
     public static void ConfigureRoutes(this WebApplication webApplication)
     {
+        webApplication.MapGet("/status", () => "api is working!")
+            .WithTags(AdminTag)
+            .WithOpenApi();
+        
+        webApplication.MapGet("/user", (IUserService userService) => userService.GetUserName())
+            .WithTags(UserTag)
+            .WithOpenApi();
+        
         webApplication.MapGroup("/deals")
             .MapDealsApi()
             .WithTags(DealsTag)

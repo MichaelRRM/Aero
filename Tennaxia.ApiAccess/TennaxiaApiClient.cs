@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-using Microsoft.Extensions.Configuration;
 using Tennaxia.ApiAccess.Model;
 
 namespace Tennaxia.ApiAccess;
