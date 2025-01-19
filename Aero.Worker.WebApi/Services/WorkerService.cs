@@ -59,7 +59,7 @@ public class WorkerService : IWorkerService
         foreach (var stringArgument in dateArguments.Select(a => new ArgumentDto(
                      Name: a.Name,
                      Description: a.Description,
-                     Type: "string",
+                     Type: "date",
                      DefaultValue: a.HasDefaultValue ? a.DefaultValue.ToString() : null,
                      IsRequired: a.IsRequired)
                  ))
