@@ -3,7 +3,7 @@ using Aero.Base;
 using Aero.Worker.WebApi;
 using Aero.Worker.WebApi.Services;
 using Asp.Versioning;
-using Scalar.AspNetCore;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,15 +26,19 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .WriteTo.File(path: @$"{Path.GetTempPath()}/AeroLogs/aero.worker.webapi-.txt");
 });
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, WorkerApiUserService>();
 builder.Services.AddScoped<IWorkerRunner, WorkerRunner>();
 builder.Services.AddScoped<IWorkerService, WorkerService>();
 
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
 builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new ApiVersion(1, 0);
@@ -49,11 +53,8 @@ builder.Services.AddApiVersioning(options =>
 
 var app = builder.Build();
 
-app.MapOpenApi();
-app.MapScalarApiReference(o =>
-    o.WithTheme(ScalarTheme.Default)
-        .WithEndpointPrefix("api/{documentName}")
-);
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
