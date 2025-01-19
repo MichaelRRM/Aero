@@ -10,17 +10,19 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterOutlet } from '@angular/router';
 import { SettingsService } from './services/settings.service';
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, TranslateModule, SettingsMenuComponent],
+  imports: [RouterOutlet, CommonModule, TranslateModule, SettingsMenuComponent, MainMenuComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
   @ViewChild('avatarButtonRef') avatarButtonRef!: ElementRef;
   @ViewChild(SettingsMenuComponent) settingsMenuRef!: SettingsMenuComponent;
   showSettingsMenu = false;
+  showMainMenu = false;
 
   constructor(
     public settings: SettingsService,
@@ -37,6 +39,11 @@ export class AppComponent {
 
   onLanguageChange(language: string) {
     this.settings.updateSettings({ language });
+  }
+
+  toggleMainMenu() {
+    this.showMainMenu = !this.showMainMenu;
+    if (this.showSettingsMenu) this.showSettingsMenu = false;
   }
 
   toggleSettingsMenu() {
