@@ -1,0 +1,41 @@
+<div
+  #settingsMenuRef
+  class="absolute right-0 top-full mt-2 w-56 p-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-md"
+>
+  <div class="mb-4 text-center">
+    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+      Michael MOORE
+    </p>
+  </div>
+
+  <hr class="my-2 border-gray-300 dark:border-gray-600" />
+
+  <div class="flex items-center justify-between my-4">
+    <label class="text-gray-800 dark:text-gray-200"
+      >{{ "HOME.SETTINGS.DARK" | translate }}</label
+    >
+    <input
+      type="checkbox"
+      [ngModel]="(settings.settings$ | async)?.darkMode"
+      (ngModelChange)="onDarkModeChange($event)"
+      class="cursor-pointer"
+    />
+  </div>
+
+  <hr class="my-2 border-gray-300 dark:border-gray-600" />
+
+  <div class="flex items-center justify-between">
+    <label class="text-gray-800 dark:text-gray-200"
+      >{{ "HOME.SETTINGS.LANGUAGE" | translate }}</label
+    >
+    <select
+      [ngModel]="(settings.settings$ | async)?.language"
+      (ngModelChange)="onLanguageChange($event)"
+      class="p-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+    >
+      @for (lang of translate.getLangs(); track lang) {
+      <option [value]="lang">{{ lang === 'en' ? 'English' : 'French' }}</option>
+      }
+    </select>
+  </div>
+</div>

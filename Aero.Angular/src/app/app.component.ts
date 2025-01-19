@@ -8,71 +8,46 @@ import {
 } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { SettingsService } from './services/settings.service';
+import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, TranslateModule, FormsModule],
+  imports: [RouterOutlet, CommonModule, TranslateModule, SettingsMenuComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   @ViewChild('avatarButtonRef') avatarButtonRef!: ElementRef;
-  @ViewChild('settingsMenuRef') settingsMenuRef!: ElementRef;
-
-  isDarkMode = false;
-  selectedLanguage = 'en';
+  @ViewChild(SettingsMenuComponent) settingsMenuRef!: SettingsMenuComponent;
   showSettingsMenu = false;
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    public settings: SettingsService,
+    private translate: TranslateService
+  ) {
     this.translate.addLangs(['fr', 'en']);
     this.translate.setDefaultLang('en');
     this.translate.use('en');
   }
 
-  ngOnInit(): void {
-    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  onDarkModeChange(darkMode: boolean) {
+    this.settings.updateSettings({ darkMode });
+  }
 
-    const savedDarkMode = localStorage.getItem('darkMode');
-    if (savedDarkMode) {
-      this.isDarkMode = savedDarkMode === 'true';
-    }
-
-    const savedLang = localStorage.getItem('language');
-    if (savedLang) {
-      this.selectedLanguage = savedLang;
-      this.translate.use(savedLang);
-    }
+  onLanguageChange(language: string) {
+    this.settings.updateSettings({ language });
   }
 
   toggleSettingsMenu() {
     this.showSettingsMenu = !this.showSettingsMenu;
   }
 
-  toggleDarkMode(event: boolean) {
-    this.isDarkMode = event;
-    localStorage.setItem('darkMode', event.toString());
-  }
-
-  onLanguageChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedLanguage = selectElement.value;
-    this.translate.use(this.selectedLanguage);
-    localStorage.setItem('language', this.selectedLanguage);
-  }
-
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     if (!this.showSettingsMenu) return;
-
-    const clickedInsideMenu = this.settingsMenuRef?.nativeElement.contains(
-      event.target
-    );
-    const clickedAvatarButton = this.avatarButtonRef?.nativeElement.contains(
-      event.target
-    );
-
+    const clickedInsideMenu = this.settingsMenuRef?.menuContainer.nativeElement.contains(event.target);
+    const clickedAvatarButton = this.avatarButtonRef?.nativeElement.contains(event.target);
     if (!clickedInsideMenu && !clickedAvatarButton) {
       this.showSettingsMenu = false;
     }
