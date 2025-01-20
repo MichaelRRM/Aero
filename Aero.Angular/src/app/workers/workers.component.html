@@ -9,7 +9,7 @@
             <div class="p-2 mb-2">
               <button
                 (click)="scrollToWorker(worker.name)"
-                class="w-full text-left font-medium text-secondary hover:text-accent focus:outline-none"
+                class="w-full text-left font-medium text-text hover:text-accent focus:outline-none"
                 [class.text-accent]="selectedWorker === worker.name">
                 {{ worker.name }}
               </button>
@@ -38,7 +38,7 @@
       <div [id]="worker.name" class="mb-12">
         <div class="bg-secondary rounded-lg p-6 mb-6">
           <h2 class="text-2xl font-bold text-white mb-2">{{ worker.name }}</h2>
-          <p class="text-text">{{ worker.description }}</p>
+          <p class="text-white">{{ worker.description }}</p>
         </div>
 
         @for (module of worker.modules; track module.name) {
