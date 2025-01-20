@@ -3,6 +3,10 @@
     "SETTINGS": {
       "DARK": "Dark Mode",
       "LANGUAGE": "Language"
+    },
+    "MENU": {
+      "HOME": "Home",
+      "WORKERS": "Workers"
     }
   }
 }

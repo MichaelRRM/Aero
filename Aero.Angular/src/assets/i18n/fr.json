@@ -3,6 +3,10 @@
     "SETTINGS": {
       "DARK": "Mode Sombre",
       "LANGUAGE": "Langue"
+    },
+    "MENU": {
+      "HOME": "Accueil",
+      "WORKERS": "Workers"
     }
   }
 }

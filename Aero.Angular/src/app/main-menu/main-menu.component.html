@@ -1,14 +1,12 @@
-<div
-      #menuContainer
-      class="absolute left-4 top-16 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg"
-    >
-
-      <nav class="py-2">
-        <a
-          routerLink="/workers"
-          class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-        >
-          Workers
-        </a>
-      </nav>
-    </div>
+<div class="main-menu absolute top-0 left-0 h-screen w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+  <div class="p-4">
+    <a routerLink="/"
+       class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer">
+       {{ "HOME.MENU.HOME" | translate }}
+    </a>
+    <a routerLink="/workers"
+       class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer">
+       {{ "HOME.MENU.WORKERS" | translate }}
+    </a>
+  </div>
+</div>

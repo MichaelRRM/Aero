@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   HostListener,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
