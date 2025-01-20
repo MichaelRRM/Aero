@@ -21,6 +21,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 export class AppComponent {
   @ViewChild('avatarButtonRef') avatarButtonRef!: ElementRef;
   @ViewChild(SettingsMenuComponent) settingsMenuRef!: SettingsMenuComponent;
+  @ViewChild('menuButtonRef') menuButtonRef!: ElementRef;
   showSettingsMenu = false;
   showMainMenu = false;
 
@@ -52,9 +53,20 @@ export class AppComponent {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+
+    if (this.showMainMenu) {
+      const clickedHamburger = this.menuButtonRef?.nativeElement.contains(target);
+      const clickedInsideMenu = target.closest('.main-menu');
+
+      if (!clickedHamburger && !clickedInsideMenu) {
+        this.showMainMenu = false;
+      }
+    }
+
     if (!this.showSettingsMenu) return;
-    const clickedInsideMenu = this.settingsMenuRef?.menuContainer.nativeElement.contains(event.target);
-    const clickedAvatarButton = this.avatarButtonRef?.nativeElement.contains(event.target);
+    const clickedInsideMenu = this.settingsMenuRef?.menuContainer.nativeElement.contains(target);
+    const clickedAvatarButton = this.avatarButtonRef?.nativeElement.contains(target);
     if (!clickedInsideMenu && !clickedAvatarButton) {
       this.showSettingsMenu = false;
     }
