@@ -1,6 +1,79 @@
-<div class="p-6">
-  <h1 class="text-3xl font-bold">Workers</h1>
-  <p class="mt-4 text-gray-600 dark:text-gray-300">
-    Workers component placeholder content
-  </p>
+<div class="flex">
+  <!-- Left side navigation -->
+  <nav class="w-1/4 p-4 border-r border-gray-200 dark:border-gray-700">
+    <h2 class="text-xl font-bold text-primary mb-4">Workers</h2>
+    <ul class="space-y-2">
+      <!-- Replace *ngFor with the new @for syntax -->
+      @for (worker of workers; track worker) {
+        <li class="text-text hover:text-primary transition">
+          <!-- Basic anchor link using #fragment -->
+          <a [href]="'#' + worker.name" class="block py-1">
+            {{ worker.name }}
+          </a>
+
+          <!-- Nested modules tree -->
+          <ul class="pl-4 border-l border-gray-300 dark:border-gray-600 ml-2 mt-1 space-y-1">
+            @for (mod of worker.modules; track mod) {
+              <li class="text-sm text-text hover:text-secondary transition">
+                <a [href]="'#' + worker.name + '_' + mod.name" class="block py-1">
+                  {{ mod.name }}
+                </a>
+              </li>
+            }
+          </ul>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <!-- Main content area -->
+  <div class="w-3/4 p-4">
+    @for (worker of workers; track worker) {
+      <!-- Each worker has its own container identified by name -->
+      <div [id]="worker.name" class="mb-8">
+        <h2 class="text-2xl font-bold text-primary mb-2">
+          {{ worker.name }}
+        </h2>
+        <p class="text-text mb-4">
+          {{ worker.description }}
+        </p>
+
+        <!-- Worker’s modules -->
+        @for (mod of worker.modules; track mod) {
+          <div [id]="worker.name + '_' + mod.name" class="mb-6">
+            <h3 class="text-xl font-semibold text-secondary mb-1">
+              {{ mod.name }}
+            </h3>
+            <p class="text-text mb-3">
+              {{ mod.description }}
+            </p>
+
+            <!-- Module arguments -->
+            @for (arg of mod.arguments; track arg) {
+              <div class="mb-2 p-3 border border-gray-100 dark:border-gray-700 rounded-md">
+                <div>
+                  <span class="font-semibold text-accent">{{ arg.name }}</span>
+                  <span class="text-sm text-gray-500 italic ml-1">
+                    ({{ arg.type }})
+                  </span>
+                </div>
+                <div class="text-text">
+                  {{ arg.description }}
+                </div>
+                <div class="text-sm mt-1">
+                  <span>Required:</span>
+                  <span [class.text-red-500]="arg.isRequired">
+                    {{ arg.isRequired ? 'Yes' : 'No' }}
+                  </span>
+                </div>
+                <div *ngIf="arg.defaultValue" class="text-sm text-gray-500">
+                  Default: {{ arg.defaultValue }}
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
 </div>
