@@ -1,76 +1,95 @@
-<div class="flex">
-  <!-- Left side navigation -->
-  <nav class="w-1/4 p-4 border-r border-gray-200 dark:border-gray-700">
-    <h2 class="text-xl font-bold text-primary mb-4">Workers</h2>
-    <ul class="space-y-2">
-      <!-- Replace *ngFor with the new @for syntax -->
-      @for (worker of workers; track worker) {
-        <li class="text-text hover:text-primary transition">
-          <!-- Basic anchor link using #fragment -->
-          <a [href]="'#' + worker.name" class="block py-1">
-            {{ worker.name }}
-          </a>
-
-          <!-- Nested modules tree -->
-          <ul class="pl-4 border-l border-gray-300 dark:border-gray-600 ml-2 mt-1 space-y-1">
-            @for (mod of worker.modules; track mod) {
-              <li class="text-sm text-text hover:text-secondary transition">
-                <a [href]="'#' + worker.name + '_' + mod.name" class="block py-1">
-                  {{ mod.name }}
-                </a>
-              </li>
+<div class="flex h-screen">
+  <!-- Left Panel - Navigation Tree -->
+  <div class="w-64 border-r border-primary/20 p-4 bg-secondary/5">
+    <h2 class="text-lg font-semibold mb-4 text-primary">Workers</h2>
+    <nav>
+      <ul class="space-y-2">
+        @for (worker of workers; track worker.name) {
+          <li>
+            <button
+              (click)="scrollToWorker(worker.name)"
+              class="w-full text-left p-2 rounded hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              [class.text-accent]="selectedWorker === worker.name">
+              {{ worker.name }}
+            </button>
+            @if (selectedWorker === worker.name) {
+              <ul class="ml-4 mt-1 space-y-1">
+                @for (module of worker.modules; track module.name) {
+                  <li>
+                    <button
+                      (click)="scrollToModule(worker.name, module.name)"
+                      class="w-full text-left p-1 text-sm rounded hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      [class.text-accent]="selectedModule === module.name">
+                      {{ module.name }}
+                    </button>
+                  </li>
+                }
+              </ul>
             }
-          </ul>
-        </li>
-      }
-    </ul>
-  </nav>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
 
-  <!-- Main content area -->
-  <div class="w-3/4 p-4">
-    @for (worker of workers; track worker) {
-      <!-- Each worker has its own container identified by name -->
-      <div [id]="worker.name" class="mb-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">
-          {{ worker.name }}
-        </h2>
-        <p class="text-text mb-4">
-          {{ worker.description }}
-        </p>
+  <!-- Right Panel - Content -->
+  <div class="flex-1 p-6 overflow-y-auto">
+    @for (worker of workers; track worker.name) {
+      <div [id]="worker.name" class="mb-12">
+        <h2 class="text-2xl font-bold text-primary mb-2">{{ worker.name }}</h2>
+        <p class="text-text mb-6">{{ worker.description }}</p>
 
-        <!-- Worker’s modules -->
-        @for (mod of worker.modules; track mod) {
-          <div [id]="worker.name + '_' + mod.name" class="mb-6">
-            <h3 class="text-xl font-semibold text-secondary mb-1">
-              {{ mod.name }}
-            </h3>
-            <p class="text-text mb-3">
-              {{ mod.description }}
-            </p>
+        @for (module of worker.modules; track module.name) {
+          <div [id]="worker.name + '-' + module.name" class="mb-8">
+            <h3 class="text-xl font-semibold text-secondary mb-2">{{ module.name }}</h3>
+            <p class="text-text mb-4">{{ module.description }}</p>
 
-            <!-- Module arguments -->
-            @for (arg of mod.arguments; track arg) {
-              <div class="mb-2 p-3 border border-gray-100 dark:border-gray-700 rounded-md">
-                <div>
-                  <span class="font-semibold text-accent">{{ arg.name }}</span>
-                  <span class="text-sm text-gray-500 italic ml-1">
-                    ({{ arg.type }})
-                  </span>
+            <form [formGroup]="getFormGroup(worker.name, module.name)" class="space-y-4">
+              @for (arg of module.arguments; track arg.name) {
+                <div class="space-y-2">
+                  <label [for]="arg.name" class="block text-sm font-medium text-text">
+                    {{ arg.name }}
+                    @if (arg.isRequired) {
+                      <span class="text-accent">*</span>
+                    }
+                  </label>
+                  <p class="text-sm text-text/70">{{ arg.description }}</p>
+
+                  @switch (arg.type) {
+                    @case ('string') {
+                      <input
+                        [id]="arg.name"
+                        type="text"
+                        [formControlName]="arg.name"
+                        class="w-full p-2 rounded border border-primary/20 bg-secondary/5 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        [placeholder]="arg.defaultValue || ''">
+                    }
+                    @case ('number') {
+                      <input
+                        [id]="arg.name"
+                        type="number"
+                        [formControlName]="arg.name"
+                        class="w-full p-2 rounded border border-primary/20 bg-secondary/5 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        [placeholder]="arg.defaultValue || ''">
+                    }
+                    @case ('boolean') {
+                      <div class="flex items-center">
+                        <input [id]="arg.name"
+                          type="checkbox"
+                          [formControlName]="arg.name"
+                          class="rounded border-primary/20 text-accent focus:ring-primary/50">
+                      </div>
+                    }
+                  }
                 </div>
-                <div class="text-text">
-                  {{ arg.description }}
-                </div>
-                <div class="text-sm mt-1">
-                  <span>Required:</span>
-                  <span [class.text-red-500]="arg.isRequired">
-                    {{ arg.isRequired ? 'Yes' : 'No' }}
-                  </span>
-                </div>
-                <div *ngIf="arg.defaultValue" class="text-sm text-gray-500">
-                  Default: {{ arg.defaultValue }}
-                </div>
-              </div>
-            }
+              }
+
+              <button
+                (click)="runModule(worker.name, module.name)"
+                class="px-4 py-2 bg-accent text-white rounded hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent/50">
+                Run
+              </button>
+            </form>
           </div>
         }
       </div>
