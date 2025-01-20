@@ -1,6 +1,17 @@
 <div [class.dark]="(settings.settings$ | async)?.darkMode">
   <div class="relative min-h-screen h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
-    <div class="absolute top-4 right-4">
+    <header class="absolute top-0 left-0 right-0 p-4 flex justify-between">
+      <button
+        #menuButtonRef
+        (click)="toggleMainMenu()"
+        class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        aria-label="Toggle main menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
       <div class="relative">
         <button
           #avatarButtonRef
@@ -13,7 +24,20 @@
           <app-settings-menu />
         }
       </div>
-    </div>
+    </header>
+
+    @if (showMainMenu) {
+      <div class="absolute top-0 left-0 h-screen w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+        <div class="p-4">
+          <a routerLink="/workers"
+             class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+             (click)="toggleMainMenu()">
+            Workers
+          </a>
+        </div>
+      </div>
+    }
+
     <div class="h-screen">
       <router-outlet />
     </div>
