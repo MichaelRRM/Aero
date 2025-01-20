@@ -46,7 +46,20 @@ builder.Services.AddApiVersioning(options =>
     );
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost4200", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // the Angular dev server
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            ;
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowLocalhost4200");
 
 app.UseSwagger();
 app.UseSwaggerUI();
