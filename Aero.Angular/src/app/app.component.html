@@ -27,8 +27,8 @@
     </header>
 
     @if (showMainMenu) {
-      <app-main-menu></app-main-menu>>
-    }
+      <app-main-menu (menuClosed)="showMainMenu = false" />
+        }
 
     <div class="h-screen">
       <router-outlet />

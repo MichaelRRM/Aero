@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -10,4 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class MainMenuComponent {
   @ViewChild('menuContainer') menuContainer!: ElementRef;
+  @Output() menuClosed = new EventEmitter<void>();
+
+  closeMenu() {
+    this.menuClosed.emit();
+  }
 }
