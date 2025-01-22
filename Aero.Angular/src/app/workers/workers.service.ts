@@ -12,6 +12,6 @@ export class WorkerService {
   constructor(private http: HttpClient) {}
 
   getWorkers(): Observable<Worker[]> {
-    return this.http.get<Worker[]>(`${environment.apiUrl}/workers`);
+    return this.http.get<Worker[]>(`${environment.workerApiUrl}/workers`);
   }
 }

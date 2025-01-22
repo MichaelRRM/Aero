@@ -1,31 +1,54 @@
-
-<div class="main-menu absolute top-0 left-0 h-screen w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
-
+<div
+  class="main-menu absolute top-0 left-0 h-screen w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700"
+>
   <div class="flex justify-end p-4">
     <button
-    (click)="closeMenu()"
+      (click)="closeMenu()"
       class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
-      aria-label="Close menu">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      aria-label="Close menu"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-gray-500 dark:text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
       </svg>
     </button>
   </div>
 
   <div class="mt-4">
-    <a routerLink="/"
+    <a
+      routerLink="/"
       (click)="closeMenu()"
-       class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer">
-       {{ "HOME.MENU.HOME" | translate }}
+      class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+    >
+      {{ "HOME.MENU.HOME" | translate }}
     </a>
 
     <div class="my-2 border-t border-gray-200 dark:border-gray-700"></div>
 
-    <a routerLink="/workers"
+    <a
+      routerLink="/workers"
       (click)="closeMenu()"
-       class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer">
-       {{ "HOME.MENU.WORKERS" | translate }}
+      class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+    >
+      {{ "HOME.MENU.WORKERS" | translate }}
+    </a>
+
+    <a
+      routerLink="/system-status"
+      (click)="closeMenu()"
+      class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
+    >
+      {{ "HOME.MENU.SYSTEM_STATUS" | translate }}
     </a>
   </div>
 </div>
-

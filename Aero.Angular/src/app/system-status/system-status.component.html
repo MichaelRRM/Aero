@@ -1,0 +1,39 @@
+<div class="p-6 pl-80 pr-60 pt-20">
+      <!-- API Status Section -->
+      <div class="mb-8 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+        <h2 class="text-xl font-semibold mb-6">{{ 'SYSTEM_STATUS.API_STATUS' | translate }}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Web API Status -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+            <div class="flex items-center">
+              <div class="mr-3 h-3 w-3 rounded-full"
+                   [class.bg-green-500]="webStatus"
+                   [class.bg-red-500]="!webStatus">
+              </div>
+              <div>
+                <div class="font-medium">Web API</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  {{ (webStatus ? 'SYSTEM_STATUS.OPERATIONAL' : 'SYSTEM_STATUS.DOWN') | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Worker API Status -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+            <div class="flex items-center">
+              <div class="mr-3 h-3 w-3 rounded-full"
+                   [class.bg-green-500]="workerStatus"
+                   [class.bg-red-500]="!workerStatus">
+              </div>
+              <div>
+                <div class="font-medium">Worker API</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  {{ (workerStatus ? 'SYSTEM_STATUS.OPERATIONAL' : 'SYSTEM_STATUS.DOWN') | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

@@ -6,7 +6,17 @@
     },
     "MENU": {
       "HOME": "Home",
-      "WORKERS": "Workers"
+      "WORKERS": "Workers",
+      "SYSTEM_STATUS": "System Status"
     }
+  },
+  "SYSTEM_STATUS": {
+    "TITLE": "System Status",
+    "API_STATUS": "API Status",
+    "OPERATIONAL": "Operational",
+    "DOWN": "Down",
+    "ENVIRONMENTS": "Environments",
+    "DATABASES": "Databases",
+    "APIS": "APIs"
   }
 }
