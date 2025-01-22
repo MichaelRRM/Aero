@@ -1,0 +1,24 @@
+<Project DefaultTargets="Help" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SolutionDir>$(MSBuildProjectDirectory)</SolutionDir>
+    <WebApiCsproj>$(SolutionDir)\Aero.WebApi\Aero.WebApi.csproj</WebApiCsproj>
+
+    <PublishDir>$(SolutionDir)\publish\Aero.WebApi</PublishDir>
+
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+  </PropertyGroup>
+
+  <!-- 1) Build -->
+  <Target Name="Build">
+    <Message Text="--- Building Aero.WebApi ---" Importance="high" />
+    <Exec Command="dotnet build &quot;$(WebApiCsproj)&quot; -c $(Configuration)" />
+  </Target>
+
+  <!-- 2) Publish -->
+  <Target Name="Publish" DependsOnTargets="Build">
+    <Message Text="--- Publishing Aero.WebApi ---" Importance="high" />
+    <Exec Command="dotnet publish &quot;$(WebApiCsproj)&quot; -c $(Configuration) -o &quot;$(PublishDir)&quot;" />
+  </Target>
+
+</Project>
