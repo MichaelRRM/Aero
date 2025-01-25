@@ -43,7 +43,7 @@ export class WorkersComponent implements OnInit {
             case 'number':
               defaultValue = defaultValue ? parseFloat(defaultValue) : null;
               break;
-            case 'string':
+            case 'text':
               defaultValue = defaultValue || '';
               break;
             case 'date':
@@ -51,7 +51,7 @@ export class WorkersComponent implements OnInit {
               break;
           }
 
-          group[arg.name] = [[defaultValue, arg.isRequired]];
+          group[arg.name] = [[defaultValue]];
         });
 
         this.formGroups.set(this.getFormGroupKey(worker.name, module.name), this.fb.group(group));

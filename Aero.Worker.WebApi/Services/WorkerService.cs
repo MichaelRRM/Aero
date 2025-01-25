@@ -42,7 +42,7 @@ public class WorkerService : IWorkerService
         foreach (var stringArgument in stringArguments.Select(a => new ArgumentDto(
                      Name: a.Name,
                      Description: a.Description,
-                     Type: "string",
+                     Type: "text",
                      DefaultValue: a.DefaultValue?.ToString(),
                      IsRequired: a.IsRequired)
                  ))

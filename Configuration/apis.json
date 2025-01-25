@@ -2,23 +2,23 @@
 	"Apis": {
 		"ElasticSearch": {
 			"LOCAL": {
-				"URL": "XXX"
+				"URL": "https://placeholder.com/"
 			},
 			"DEV": {
-				"URL": "XXX"
+				"URL": "https://placeholder.com/"
 			}
 		},
 		"Tennaxia": {
 			"LOCAL": {
-				"URL": "https://api.github.com/",
+				"URL": "https://placeholder.com/",
 				"Token": "YYY"
 			},
 			"DEV": {
-				"URL": "XXX",
+				"URL": "https://placeholder.com/",
 				"Token": "YYY"
 			},
 			"PROD": {
-				"URL": "XXX",
+				"URL": "https://placeholder.com/",
 				"Token": "YYY"
 			}
 		}
