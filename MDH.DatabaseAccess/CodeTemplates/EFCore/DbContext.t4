@@ -59,10 +59,6 @@ public partial class <#= Options.ContextName #> : DbContext
 <#
     }
 #>
-    public <#= Options.ContextName #>(DbContextOptions<<#= Options.ContextName #>> options)
-        : base(options)
-    {
-    }
 
 <#
     foreach (var entityType in Model.GetEntityTypes().Where(e => !e.IsSimpleManyToManyJoinEntityType()))
