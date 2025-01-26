@@ -7,11 +7,6 @@ namespace MDH.DatabaseAccess;
 
 public partial class MdhDbContext : DbContext
 {
-    public MdhDbContext(DbContextOptions<MdhDbContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<DealDatum> DealData { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

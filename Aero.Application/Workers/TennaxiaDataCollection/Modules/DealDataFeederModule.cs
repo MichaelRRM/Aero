@@ -5,7 +5,7 @@ namespace Aero.Application.Workers.TennaxiaDataCollection.Modules;
 
 public class DealDataFeederModule : IModule
 {
-    public string Name => "DealDataFeeder";
+    public string Name => "Deal Data Feeder";
     public string Description => "Imports data points for deals from Tennaxia into MDH";
 
     public StringArgument CampaignId { get; } = new(

@@ -9,13 +9,13 @@ public class TestModule : IModule
     public string Description => "This is a test module designed to easily test execution, logging, behaviour in front end, etc.";
 
     public StringArgument TestArgument { get; } = new(
-        name: "testArgument",
+        name: "TestArgument",
         isRequired: true,
         description: "Test argument that will be logged."
     );
     
     public DateOnlyArgument ProcessDate { get; } = new(
-        name: "processDate",
+        name: "ProcessDate",
         isRequired: false,
         defaultValue: DateOnly.FromDateTime(DateTime.Today),
         description: "A test date that will simply be logged"

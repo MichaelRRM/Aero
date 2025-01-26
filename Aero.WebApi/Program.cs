@@ -44,6 +44,11 @@ builder.Services.AddApiVersioning(options =>
         new HeaderApiVersionReader("X-Api-Version"),
         new QueryStringApiVersionReader("api-version")
     );
+})
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'V";
+    options.SubstituteApiVersionInUrl = true;
 });
 
 builder.Services.AddCors(options =>
@@ -64,7 +69,7 @@ app.UseCors("AllowLocalhost4200");
 app.UseSwagger();
 app.UseSwaggerUI();
 
-var v1Routes = app.NewVersionedApi("MyApi")
+var v1Routes = app.NewVersionedApi()
     .MapGroup("/api/v{version:apiVersion}")
     .HasApiVersion(new ApiVersion(1, 0));
 
