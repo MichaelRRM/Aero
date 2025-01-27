@@ -7,13 +7,13 @@ public abstract class Worker : IWorker
     public abstract string Name { get; }
     public abstract string Description { get; }
 
-    public IModule GetModule(string moduleName)
+    public IModule GetModule(string moduleCode)
     {
         var modules = Modules();
-        var module = modules.FirstOrDefault(m => m.Name == moduleName);
+        var module = modules.FirstOrDefault(m => m.Code == moduleCode);
         if (module == null)
         {
-            throw new Exception($"Module {moduleName} not found in {GetType().Name}");
+            throw new Exception($"Module {moduleCode} not found in {GetType().Name}");
         }
         return module;
     }

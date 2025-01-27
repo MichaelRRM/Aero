@@ -28,7 +28,7 @@ public class WorkerService : IWorkerService
     private ModuleDto ToDto(IModule module)
     {
         var arguments = GetArguments(module);
-        return new ModuleDto(Name: module.Name, Description: module.Description, Arguments: arguments);
+        return new ModuleDto(Code: module.Code, Name: module.Name, Description: module.Description, Arguments: arguments);
     }
 
     private IEnumerable<ArgumentDto> GetArguments(IModule module)

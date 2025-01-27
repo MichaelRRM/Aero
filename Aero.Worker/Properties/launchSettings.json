@@ -1,13 +1,13 @@
 ﻿{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "TennaxiaDataCollection": {
+    "TennaxiaDataCollection_DealDataFeeder": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       },
-      "commandLineArgs": "--application=MDH --worker=TennaxiaDataCollection --module=DealDataFeeder --campaignId=xxx"
+      "commandLineArgs": "--application=MDH --worker=TennaxiaDataCollection --module=DealDataFeeder --CampaignId=xxx"
     }
   }
 }

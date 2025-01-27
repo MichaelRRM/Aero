@@ -3,10 +3,11 @@ using Aero.Tennaxia.ApiAccess;
 
 namespace Aero.Application.Workers.TennaxiaDataCollection.Modules;
 
-public class DealDataFeederModule : IModule
+public class DealDataFeederModule : AbstractModule
 {
-    public string Name => "Deal Data Feeder";
-    public string Description => "Imports data points for deals from Tennaxia into MDH";
+    public override string Code => "DealDataFeeder";
+    public override string Name => "Deal Data Feeder";
+    public override string Description => "Imports data points for deals from Tennaxia into MDH";
 
     public StringArgument CampaignId { get; } = new(
         name: "CampaignId",
@@ -23,7 +24,7 @@ public class DealDataFeederModule : IModule
         _configuration = configuration;
     }
 
-    public async Task RunAsync()
+    public override async Task RunAsync()
     {
         var campaignId = CampaignId.GetValue(_configuration);
         

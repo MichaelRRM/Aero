@@ -24,15 +24,15 @@ namespace Aero.Worker
             {
                 var applicationName = _configuration[$"{WorkerArgumentNames.Application}"] ?? throw new Exception($"No application specified. Please use --{WorkerArgumentNames.Application}=<applicationName>");
                 var workerName = _configuration[$"{WorkerArgumentNames.WorkerName}"] ?? throw new Exception($"No worker specified. Please use --{WorkerArgumentNames.WorkerName}=<workerName>");
-                var moduleName = _configuration[$"{WorkerArgumentNames.ModuleName}"] ?? throw new Exception($"No module specified. Please use --{WorkerArgumentNames.ModuleName}=<moduleName>");
+                var moduleCode = _configuration[$"{WorkerArgumentNames.ModuleCode}"] ?? throw new Exception($"No module specified. Please use --{WorkerArgumentNames.ModuleCode}=<moduleName>");
                 var environment = _configuration[$"{WorkerArgumentNames.WorkerEnvironment}"];
                 var user = _configuration[$"{WorkerArgumentNames.UserName}"];
-                _logger.LogInformation($"Worker running at: {DateTimeOffset.Now} with application: {applicationName}, worker: {workerName}, module: {moduleName}, environment: {environment}, user: {user}");
+                _logger.LogInformation($"Worker running at: {DateTimeOffset.Now} with application: {applicationName}, worker: {workerName}, module: {moduleCode}, environment: {environment}, user: {user}");
 
                 using var scope = _serviceProvider.CreateScope();
                 var workerFactory = scope.ServiceProvider.GetRequiredService<WorkerFactory>();
                 var worker = workerFactory.GetWorker(applicationName, workerName);
-                var module = worker.GetModule(moduleName);
+                var module = worker.GetModule(moduleCode);
                 
                 await module.RunAsync();
             }
