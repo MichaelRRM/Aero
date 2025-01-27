@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MDH.DatabaseAccess\MDH.DatabaseAccess.csproj" />
+      <ProjectReference Include="..\Aero.MDH.DatabaseAccess\Aero.MDH.DatabaseAccess.csproj" />
       <ProjectReference Include="..\Tennaxia.ApiAccess\Tennaxia.ApiAccess.csproj" />
     </ItemGroup>
 

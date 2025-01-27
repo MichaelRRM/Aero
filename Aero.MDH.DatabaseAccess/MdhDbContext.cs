@@ -1,7 +1,7 @@
 ﻿using Aero.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace MDH.DatabaseAccess;
+namespace Aero.MDH.DatabaseAccess;
 
 public partial class MdhDbContext : DbContext
 {

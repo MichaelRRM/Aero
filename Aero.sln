@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Worker", "Aero.Worker\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Application", "Aero.Application\Aero.Application.csproj", "{D660B74E-E0CF-49BC-B971-C3BB5BD154C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDH.DatabaseAccess", "MDH.DatabaseAccess\MDH.DatabaseAccess.csproj", "{F0CC6989-AC80-441E-AB14-78FD833C5F01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.MDH.DatabaseAccess", "Aero.MDH.DatabaseAccess\Aero.MDH.DatabaseAccess.csproj", "{F0CC6989-AC80-441E-AB14-78FD833C5F01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{92E267C6-9465-4C7C-AD24-9124FBBD23D7}"
 EndProject

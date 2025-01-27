@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MDH.DatabaseAccess.Models;
+namespace Aero.MDH.DatabaseAccess.Models;
 
 public partial class DealDatum : IAuditable
 {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MDH.DatabaseAccess;
+namespace Aero.MDH.DatabaseAccess;
 
 public static class MdhDbContextRegistration
 {

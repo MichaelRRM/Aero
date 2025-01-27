@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using MDH.DatabaseAccess.Models;
+using Aero.MDH.DatabaseAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MDH.DatabaseAccess;
+namespace Aero.MDH.DatabaseAccess;
 
 public partial class MdhDbContext : DbContext
 {

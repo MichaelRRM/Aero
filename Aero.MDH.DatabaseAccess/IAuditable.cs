@@ -1,4 +1,4 @@
-namespace MDH.DatabaseAccess;
+namespace Aero.MDH.DatabaseAccess;
 
 public interface IAuditable
 {
