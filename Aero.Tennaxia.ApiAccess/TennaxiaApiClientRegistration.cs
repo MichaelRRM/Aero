@@ -2,7 +2,7 @@ using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Tennaxia.ApiAccess;
+namespace Aero.Tennaxia.ApiAccess;
 
 public static class TennaxiaApiClientRegistration
 {

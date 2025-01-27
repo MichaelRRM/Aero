@@ -6,7 +6,7 @@ using Aero.Application.Workers.TennaxiaDataCollection.Modules;
 using Aero.MDH.DatabaseAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Tennaxia.ApiAccess;
+using Aero.Tennaxia.ApiAccess;
 
 namespace Aero.Application;
 

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
-using Tennaxia.ApiAccess.Model;
+using Aero.Tennaxia.ApiAccess.Model;
 
-namespace Tennaxia.ApiAccess;
+namespace Aero.Tennaxia.ApiAccess;
 
 public class TennaxiaApiClient
 {

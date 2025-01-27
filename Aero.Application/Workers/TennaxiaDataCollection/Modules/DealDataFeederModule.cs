@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Tennaxia.ApiAccess;
+using Aero.Tennaxia.ApiAccess;
 
 namespace Aero.Application.Workers.TennaxiaDataCollection.Modules;
 

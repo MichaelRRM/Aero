@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Aero.MDH.DatabaseAccess\Aero.MDH.DatabaseAccess.csproj" />
-      <ProjectReference Include="..\Tennaxia.ApiAccess\Tennaxia.ApiAccess.csproj" />
+      <ProjectReference Include="..\Aero.Tennaxia.ApiAccess\Aero.Tennaxia.ApiAccess.csproj" />
     </ItemGroup>
 
 </Project>

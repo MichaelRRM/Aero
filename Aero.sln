@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Base", "Aero.Base\Aero
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Worker.WebApi", "Aero.Worker.WebApi\Aero.Worker.WebApi.csproj", "{4E4E2F85-DA70-41A5-82BE-AACFC9D801C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennaxia.ApiAccess", "Tennaxia.ApiAccess\Tennaxia.ApiAccess.csproj", "{209CF016-EFFC-4D8E-A509-D08B96296D99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Tennaxia.ApiAccess", "Aero.Tennaxia.ApiAccess\Aero.Tennaxia.ApiAccess.csproj", "{209CF016-EFFC-4D8E-A509-D08B96296D99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

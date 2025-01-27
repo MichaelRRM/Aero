@@ -1,4 +1,4 @@
-namespace Tennaxia.ApiAccess.Model;
+namespace Aero.Tennaxia.ApiAccess.Model;
 
 public class TennaxiaApiResponse
 {
