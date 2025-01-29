@@ -1,4 +1,4 @@
-<div [class.dark]="(settings.settings$ | async)?.darkMode">
+<div [class.dark]="settings.darkMode()">
   <div class="relative min-h-screen h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-300">
     <header class="absolute top-0 left-0 right-0 p-4 flex justify-between">
       <button

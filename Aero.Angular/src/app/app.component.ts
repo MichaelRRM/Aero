@@ -30,7 +30,6 @@ export class AppComponent {
   ) {
     this.translate.addLangs(['fr', 'en']);
     this.translate.setDefaultLang('en');
-    this.translate.use('en');
   }
 
   onDarkModeChange(darkMode: boolean) {

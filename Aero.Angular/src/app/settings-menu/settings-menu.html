@@ -16,7 +16,7 @@
     >
     <input
       type="checkbox"
-      [ngModel]="(settings.settings$ | async)?.darkMode"
+      [ngModel]="settings.darkMode()"
       (ngModelChange)="onDarkModeChange($event)"
       class="cursor-pointer"
     />
@@ -29,7 +29,7 @@
       >{{ "HOME.SETTINGS.LANGUAGE" | translate }}</label
     >
     <select
-      [ngModel]="(settings.settings$ | async)?.language"
+      [ngModel]="settings.language()"
       (ngModelChange)="onLanguageChange($event)"
       class="p-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
     >
