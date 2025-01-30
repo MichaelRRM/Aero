@@ -6,6 +6,7 @@ export interface Worker {
 
 export interface Module {
   name: string
+  code: string
   description: string
   arguments: Argument[]
 }
