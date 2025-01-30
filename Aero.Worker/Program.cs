@@ -1,12 +1,7 @@
-using System.Diagnostics;
 using Aero.Application;
 using Aero.Base;
 using Aero.Worker;
 using Serilog;
-
-#if DEBUG
-if (!Debugger.IsAttached) Debugger.Launch();
-#endif
 
 var builder = Host.CreateApplicationBuilder(args);
 

@@ -23,15 +23,11 @@ public class WorkerRunner
         
         try
         {
-            //TODO 
-            var workerPath = "";
-            var guid = Guid.NewGuid().ToString();
+            var workerPath = Path.Combine(AppContext.BaseDirectory, "Aero.Worker.exe");
             var userName = _userService.GetUserName();
-            
             var processStartInfo = new ProcessStartInfo
             {
-                //TODO 
-                Arguments = $"{workerPath} --{WorkerArgumentNames.WorkerName}={workerLaunchRequest.WorkerName} --{WorkerArgumentNames.ModuleCode}={workerLaunchRequest.Module} --{WorkerArgumentNames.UserName}={userName} --{WorkerArgumentNames.Guid}={guid}",
+                Arguments = $"{workerPath} --{WorkerArgumentNames.WorkerName}={workerLaunchRequest.WorkerName} --{WorkerArgumentNames.ModuleCode}={workerLaunchRequest.Module} --{WorkerArgumentNames.UserName}={userName} {workerLaunchRequest.Arguments}",
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 FileName = "cmd.exe",
