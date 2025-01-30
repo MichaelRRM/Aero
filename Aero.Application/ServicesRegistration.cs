@@ -25,10 +25,6 @@ public static class ServicesRegistration
         //workers
         services.AddScoped<WorkerFactory>();
         services.AddScoped<TennaxiaDataCollectionWorker>();
-        
-        //api services 
-        services.AddScoped<IDealsApiService, DealsApiService>();
-        services.AddScoped<IDataPointApiService, DataPointApiService>();
 
         services.AddInjectableServices();
         

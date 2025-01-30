@@ -30,8 +30,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, WorkerApiUserService>();
-builder.Services.AddScoped<IWorkerRunner, WorkerRunner>();
-builder.Services.AddScoped<IWorkerService, WorkerService>();
 
 builder.Services.AddEndpointsApiExplorer();
 

@@ -34,13 +34,13 @@ public static class Routes
     
     private static RouteGroupBuilder MapDealsApi(this RouteGroupBuilder group)
     {
-        group.MapGet("/{id:int}", (IDealsApiService dealsApiService, int id) => dealsApiService.GetDeal(id)).WithOpenApi();
+        group.MapGet("/{id:int}", (DealsApiService dealsApiService, int id) => dealsApiService.GetDeal(id)).WithOpenApi();
         return group;
     }
     
     private static RouteGroupBuilder MapDataPointApi(this RouteGroupBuilder group)
     {
-        group.MapGet("/", (IDataPointApiService dataPointApiService) => dataPointApiService.GetDataPoints()).WithOpenApi();
+        group.MapGet("/", (DataPointApiService dataPointApiService) => dataPointApiService.GetDataPoints()).WithOpenApi();
         return group;
     }
 }

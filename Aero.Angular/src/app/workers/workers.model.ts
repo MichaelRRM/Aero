@@ -17,3 +17,24 @@ export interface Argument {
   defaultValue?: string
   isRequired: boolean
 }
+
+export interface WorkerLaunchResponse {
+  workerId: number;
+  workerStatus: WorkerStatus;
+}
+
+export interface WorkerLaunchRequest {
+  workerName: string;
+  module: string;
+  arguments?: string[];
+}
+
+export enum WorkerStatus {
+  Pending = "Pending",
+  Running = "Running",
+  Succeeded = 'Succeeded',
+  CompletedWithWarnings = 'CompletedWithWarnings',
+  CompletedWithErrors = 'CompletedWithErrors',
+  Failed = 'Failed',
+  Canceled = 'Canceled'
+}

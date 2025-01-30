@@ -1,9 +1,11 @@
 using Aero.Application.ApiServices.Models;
+using Aero.Base.Attributes;
 using Aero.MDH.DatabaseAccess;
 
 namespace Aero.Application.ApiServices;
 
-public class DealsApiService : IDealsApiService
+[Injectable]
+public class DealsApiService
 {
     private readonly MdhDbContext _mdhDbContext;
 

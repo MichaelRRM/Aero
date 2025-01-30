@@ -1,4 +1,5 @@
-﻿using Aero.Worker.WebApi.Services;
+﻿using Aero.Worker.WebApi.Models;
+using Aero.Worker.WebApi.Services;
 
 namespace Aero.Worker.WebApi;
 
@@ -21,7 +22,8 @@ public static class Routes
     
     private static RouteGroupBuilder MapWorkersApi(this RouteGroupBuilder group)
     {
-        group.MapGet("", (IWorkerService workersService) => workersService.GetWorkers()).WithOpenApi();
+        group.MapGet("", (Aero.Worker.WebApi.Services.WorkerService workersService) => workersService.GetWorkers()).WithOpenApi();
+        group.MapPost("", (WorkerRunner workerRunner, WorkerLaunchRequest workerRequest) => workerRunner.RunWorkerOutOfProcess(workerRequest)).WithOpenApi();
         return group;
     }
 }

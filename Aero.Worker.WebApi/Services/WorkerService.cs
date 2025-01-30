@@ -1,10 +1,12 @@
 ﻿using System.Reflection;
 using Aero.Application.Workers;
+using Aero.Base.Attributes;
 using Aero.Worker.WebApi.Models;
 
 namespace Aero.Worker.WebApi.Services;
 
-public class WorkerService : IWorkerService
+[Injectable]
+public class WorkerService
 {
     private readonly WorkerFactory _workerFactory;
 
