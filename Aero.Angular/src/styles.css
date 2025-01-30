@@ -12,8 +12,8 @@
 
 /* Dark theme overrides */
 .dark {
-  --color-primary: #009eb5;
+  --color-primary: #007384;;
   --color-secondary: #1b2a37;
-  --color-accent: #008295;
+  --color-accent: #00a9c2;
   --color-text: #ffffff;
 }

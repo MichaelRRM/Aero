@@ -1,7 +1,7 @@
 <div class="flex h-screen pl-60 pr-60 pt-10">
   <!-- Left Panel - Navigation Tree -->
   <div class="w-64 border-r border-primary p-4">
-    <h2 class="text-lg font-semibold mb-4 text-primary">Workers</h2>
+    <h2 class="text-lg font-semibold mb-4 text-accent">Workers</h2>
     <nav>
       <ul class="space-y-2">
         @for (worker of workers; track worker.name) {
@@ -42,7 +42,7 @@
         </div>
 
         @for (module of worker.modules; track module.name) {
-          <div [id]="worker.name + '-' + module.name" class="mb-8 rounded-lg p-6 border border-accent">
+          <div [id]="worker.name + '-' + module.name" class="mb-8 rounded-lg p-6 border border-primary">
             <h3 class="text-xl font-semibold text-accent mb-4">{{ module.name }}</h3>
             <p class="text-text mb-6">{{ module.description }}</p>
 
@@ -100,7 +100,7 @@
               <div class="flex justify-end mt-6">
                 <button
                   (click)="runModule(worker.name, module.name)"
-                  class="px-6 py-2 bg-accent text-white rounded hover:bg-opacity-90 focus:outline-none">
+                  class="px-6 py-2 bg-primary text-white rounded hover:bg-opacity-90 focus:outline-none">
                   Run
                 </button>
               </div>
