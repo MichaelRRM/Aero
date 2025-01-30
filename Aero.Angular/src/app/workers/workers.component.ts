@@ -1,24 +1,14 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Worker, WorkerLaunchRequest } from './workers.model';
 import { WorkerService } from './workers.service';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-workers',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastrModule],
   templateUrl: './workers.component.html',
 })
 export class WorkersComponent implements OnInit {
@@ -27,7 +17,11 @@ export class WorkersComponent implements OnInit {
 
   selectedWorker: string | null = null;
   selectedModule: string | null = null;
-  constructor(private workerService: WorkerService, private fb: FormBuilder) {}
+  constructor(
+    private workerService: WorkerService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.workerService.getWorkers().subscribe((data) => {
@@ -122,10 +116,10 @@ export class WorkersComponent implements OnInit {
 
       this.workerService.launchWorker(request).subscribe({
         next: (response) => {
-          console.log('Worker launched successfully', response);
+          this.toastr.success(`Module ${moduleCode} launched successfully with arguments: ${argumentsArray}.`, 'Success');
         },
         error: (error) => {
-          console.error('Failed to launch worker:', error);
+          this.toastr.error(`Failed to launch module.`, 'Error');
         },
       });
     }
