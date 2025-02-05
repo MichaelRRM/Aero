@@ -15,7 +15,7 @@
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       },
-      "commandLineArgs": "--application=MDH --worker=EFrontToMdh --module=CompanyFeeder"
+      "commandLineArgs": "--application=MDH --worker=EFrontToMdh --module=CompanyFeeder --processDate=2025-02-04"
     }
   }
 }

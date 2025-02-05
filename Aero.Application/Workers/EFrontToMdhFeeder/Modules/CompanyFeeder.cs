@@ -21,17 +21,17 @@ public class CompanyFeeder : AbstractModule
     public override string Name => "Company Feeder";
     public override string Description => "Feeds company data";
 
-    public DateOnlyArgument ProcessDate { get; } = new(
+    public DateOnlyArgument ProcessDate => new(
         name: "ProcessDate",
         isRequired: false,
         defaultValue: DateOnly.FromDateTime(DateTime.Today),
-        description: "A test date that will simply be logged"
+        description: "The value date used for requesting and inserting company data"
     );
     
     public override Task RunAsync()
     {
         var processDate = ProcessDate.GetValue(_configuration);
-        _logger.LogInformation($"Running test module with argument {processDate:yyyy-MM-dd}");
+        _logger.LogInformation($"Running company Feeder with process date {processDate:yyyy-MM-dd}");
         var companyData = _ieFrontCompanyDataService.GetEFrontCompanies();
         
         // mapping 

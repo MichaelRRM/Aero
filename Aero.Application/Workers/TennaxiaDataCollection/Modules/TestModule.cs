@@ -9,13 +9,13 @@ public class TestModule : AbstractModule
     public override string Name => "Test Module";
     public override string Description => "This is a test module designed to easily test execution, logging, behaviour in front end, etc.";
 
-    public StringArgument TestArgument { get; } = new(
+    public StringArgument TestArgument => new(
         name: "TestArgument",
         isRequired: true,
         description: "Test argument that will be logged."
     );
     
-    public DateOnlyArgument ProcessDate { get; } = new(
+    public DateOnlyArgument ProcessDate => new(
         name: "ProcessDate",
         isRequired: false,
         defaultValue: DateOnly.FromDateTime(DateTime.Today),

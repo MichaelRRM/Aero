@@ -9,7 +9,7 @@ public class DealDataFeederModule : AbstractModule
     public override string Name => "Deal Data Feeder";
     public override string Description => "Imports data points for deals from Tennaxia into MDH";
 
-    public StringArgument CampaignId { get; } = new(
+    public StringArgument CampaignId => new(
         name: "CampaignId",
         isRequired: true,
         description: "Tennaxia ID of the campaign to import."
