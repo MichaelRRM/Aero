@@ -5,6 +5,7 @@ using Aero.Application.Workers;
 using Aero.Application.Workers.TennaxiaDataCollection;
 using Aero.Application.Workers.TennaxiaDataCollection.Modules;
 using Aero.Base.Attributes;
+using Aero.EFront.DataAccess;
 using Aero.MDH.DatabaseAccess;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,16 +17,11 @@ public static class ServicesRegistration
 {
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //api 
+        //data access
         services.AddTennaxiaApiClient(configuration);
-        
-        //databases
         services.AddMdhDbContext(configuration);
+        services.AddScoped<IEFrontCompanyDataService, EFrontCompanyDataService>();
         
-        //workers
-        services.AddScoped<WorkerFactory>();
-        services.AddScoped<TennaxiaDataCollectionWorker>();
-
         services.AddInjectableServices();
         
         return services;

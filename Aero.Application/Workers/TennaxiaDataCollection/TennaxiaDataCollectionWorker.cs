@@ -1,4 +1,5 @@
 using Aero.Application.Workers.TennaxiaDataCollection.Modules;
+using Aero.Base.Attributes;
 
 namespace Aero.Application.Workers.TennaxiaDataCollection;
 
@@ -7,6 +8,7 @@ public class TennaxiaDataCollectionWorker : Worker
     private readonly DealDataFeederModule _dealDataFeederModule;
     private readonly TestModule _testModule;
 
+    public override string Code => "TennaxiaDataCollection";
     public override string Name => "Tennaxia Data Collection";
     public override string Description => "These modules import data from Tennaxia into MDH";
 
