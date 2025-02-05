@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Worker.WebApi", "Aero.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Tennaxia.ApiAccess", "Aero.Tennaxia.ApiAccess\Aero.Tennaxia.ApiAccess.csproj", "{209CF016-EFFC-4D8E-A509-D08B96296D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.UnitTests", "Test\Aero.UnitTests\Aero.UnitTests.csproj", "{BE0FFB19-FDC2-4ADD-A4C1-6E1BBFFD6C48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Unit.Tests", "Test\Aero.Unit.Tests\Aero.Unit.Tests.csproj", "{BE0FFB19-FDC2-4ADD-A4C1-6E1BBFFD6C48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.EFront.DataAccess", "Aero.EFront.DataAccess\Aero.EFront.DataAccess.csproj", "{1B97D099-AF20-4495-9CF2-50BBE0519B7D}"
 EndProject

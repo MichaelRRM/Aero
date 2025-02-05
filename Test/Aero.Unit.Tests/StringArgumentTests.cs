@@ -1,7 +1,7 @@
 using Aero.Application.Workers;
 using Microsoft.Extensions.Configuration;
 
-namespace Aero.UnitTests;
+namespace Aero.Unit.Tests;
 
 public class StringArgumentTests
 {
