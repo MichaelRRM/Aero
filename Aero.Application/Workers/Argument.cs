@@ -11,6 +11,7 @@ public abstract class Argument<T>
         HasDefaultValue = false;
         Description = description;
     }
+
     protected Argument(string name, bool isRequired, T defaultValue, string description)
     {
         Name = name;
@@ -19,21 +20,22 @@ public abstract class Argument<T>
         DefaultValue = defaultValue;
         Description = description;
     }
-    
+
     public string Name { get; }
     public bool IsRequired { get; }
-    public bool HasDefaultValue;
+    public bool HasDefaultValue { get; }
     public T? DefaultValue { get; }
     public string Description { get; }
 
     public T? GetValue(IConfiguration configuration)
     {
-        var argumentAsString  = configuration.GetValue<T>(Name);
-        var isArgumentDefined = argumentAsString != null; 
+        var argumentAsString = configuration.GetValue<T>(Name);
+        var isArgumentDefined = argumentAsString != null;
 
         if (isArgumentDefined)
         {
-            return configuration.GetValue<T>(Name) ?? throw new Exception($"Couldn't parse value {argumentAsString} for argument {Name}");
+            return configuration.GetValue<T>(Name) ??
+                   throw new ArgumentException($"Couldn't parse value {argumentAsString} for argument {Name}");
         }
 
         if (HasDefaultValue)

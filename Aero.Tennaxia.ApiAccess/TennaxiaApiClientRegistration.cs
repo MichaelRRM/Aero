@@ -1,4 +1,5 @@
 using System.Net;
+using Aero.Base.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,9 +11,9 @@ public static class TennaxiaApiClientRegistration
     {
         services.AddHttpClient<TennaxiaApiClient>(httpClient =>
         {
-            var apiEnvironment = configuration[$"Environment:Apis:Tennaxia"] ?? throw new Exception($"Couldn't get api environment for Tennaxia");
-            var url = configuration[$"Apis:Tennaxia:{apiEnvironment}:URL"] ?? throw new Exception($"Couldn't get api url for Tennaxia in environment {apiEnvironment}");
-            var token = configuration[$"Apis:Tennaxia:{apiEnvironment}:Token"] ?? throw new Exception($"Couldn't get api token for Tennaxia in environment {apiEnvironment}");
+            var apiEnvironment = configuration[$"Environment:Apis:Tennaxia"] ?? throw new MissingConfigurationException($"Couldn't get api environment for Tennaxia");
+            var url = configuration[$"Apis:Tennaxia:{apiEnvironment}:URL"] ?? throw new MissingConfigurationException($"Couldn't get api url for Tennaxia in environment {apiEnvironment}");
+            var token = configuration[$"Apis:Tennaxia:{apiEnvironment}:Token"] ?? throw new MissingConfigurationException($"Couldn't get api token for Tennaxia in environment {apiEnvironment}");
 
             httpClient.BaseAddress = new Uri(url);
             httpClient.DefaultRequestHeaders.Add("private-token", token);

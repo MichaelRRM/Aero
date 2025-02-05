@@ -1,5 +1,6 @@
 using Aero.Application.Workers;
 using Aero.Base.Constants;
+using Aero.Base.Exceptions;
 
 namespace Aero.Worker
 {
@@ -22,9 +23,9 @@ namespace Aero.Worker
         {
             try
             {
-                var applicationName = _configuration[$"{WorkerArgumentNames.Application}"] ?? throw new Exception($"No application specified. Please use --{WorkerArgumentNames.Application}=<applicationName>");
-                var workerName = _configuration[$"{WorkerArgumentNames.WorkerName}"] ?? throw new Exception($"No worker specified. Please use --{WorkerArgumentNames.WorkerName}=<workerName>");
-                var moduleCode = _configuration[$"{WorkerArgumentNames.ModuleCode}"] ?? throw new Exception($"No module specified. Please use --{WorkerArgumentNames.ModuleCode}=<moduleName>");
+                var applicationName = _configuration[$"{WorkerArgumentNames.Application}"] ?? throw new MissingConfigurationException($"No application specified. Please use --{WorkerArgumentNames.Application}=<applicationName>");
+                var workerName = _configuration[$"{WorkerArgumentNames.WorkerName}"] ?? throw new MissingConfigurationException($"No worker specified. Please use --{WorkerArgumentNames.WorkerName}=<workerName>");
+                var moduleCode = _configuration[$"{WorkerArgumentNames.ModuleCode}"] ?? throw new MissingConfigurationException($"No module specified. Please use --{WorkerArgumentNames.ModuleCode}=<moduleName>");
                 var environment = _configuration[$"{WorkerArgumentNames.WorkerEnvironment}"];
                 var user = _configuration[$"{WorkerArgumentNames.UserName}"];
                 _logger.LogInformation($"Worker running at: {DateTimeOffset.Now} with application: {applicationName}, worker: {workerName}, module: {moduleCode}, environment: {environment}, user: {user}");

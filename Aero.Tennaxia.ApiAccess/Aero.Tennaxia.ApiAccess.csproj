@@ -10,5 +10,9 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Aero.Base\Aero.Base.csproj" />
+    </ItemGroup>
 
 </Project>

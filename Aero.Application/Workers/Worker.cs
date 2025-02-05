@@ -17,7 +17,7 @@ public abstract class Worker : IWorker
         var module = modules.FirstOrDefault(m => m.Code == moduleCode);
         if (module == null)
         {
-            throw new Exception($"Module {moduleCode} not found in {GetType().Name}");
+            throw new ArgumentException($"Module {moduleCode} not found in {GetType().Name}");
         }
         return module;
     }

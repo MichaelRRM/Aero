@@ -16,8 +16,6 @@ public class DealsApiService
 
     public DealDto GetDeal(int id)
     {
-        var dealDatas = _mdhDbContext.DealData.ToList();
-        
         return new DealDto(id, "test");
     }
 }
