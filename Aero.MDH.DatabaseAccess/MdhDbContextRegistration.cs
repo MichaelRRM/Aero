@@ -1,4 +1,6 @@
 using Aero.Base;
+using Aero.MDH.DatabaseAccess.DataServices;
+using Aero.MDH.DatabaseAccess.Savers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,10 @@ public static class MdhDbContextRegistration
         {
             options.UseSqlServer(connectionString);
         });
+
+        services.AddScoped<ICompanyDataService, CompanyDataService>();
+        services.AddScoped<ICompanyDataSaver, CompanyDataSaver>();
+        
         return services;
     }
 }
