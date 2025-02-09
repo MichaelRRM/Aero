@@ -25,6 +25,6 @@ public abstract class AbstractSaveRequest<T> where T : AbstractBusinessEntity
         }
             
         await _dbContext.SaveChangesAsync(cancellationToken);
-        return new SaveResult<T>(true);
+        return new SaveResult<T>(true, savedEntities: _entities.ToList());
     }
 }

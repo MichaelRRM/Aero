@@ -1,6 +1,11 @@
-﻿namespace Aero.MDH.DatabaseAccess.Savers;
+﻿using Aero.MDH.DatabaseAccess.BusinessEntities;
+
+namespace Aero.MDH.DatabaseAccess.Savers;
 
 public class CompanyGlobalIdSaver : ICompanyGlobalIdSaver
 {
-    
+    public Task SaveAsync(CompanyBusinessEntity entity, MdhDbContext dbContext, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

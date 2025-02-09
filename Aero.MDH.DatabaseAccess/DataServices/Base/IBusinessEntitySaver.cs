@@ -5,5 +5,5 @@ namespace Aero.MDH.DatabaseAccess.DataServices.Base;
 
 public interface IBusinessEntitySaver<T> where T : AbstractBusinessEntity
 {
-    
+    Task SaveAsync(T entity, MdhDbContext dbContext, CancellationToken cancellationToken);
 }
