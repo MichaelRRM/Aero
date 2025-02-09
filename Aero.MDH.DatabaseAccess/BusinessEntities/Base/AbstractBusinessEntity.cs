@@ -2,6 +2,8 @@
 
 public abstract class AbstractBusinessEntity
 {
+    public int Id { get; set; }
+    
     private readonly Dictionary<string, DatedField> _fields = new();
 
     protected StringDatedField GetField(FieldDescriptor<string?> descriptor)

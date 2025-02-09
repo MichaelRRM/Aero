@@ -1,6 +1,6 @@
 ﻿using Aero.MDH.DatabaseAccess.BusinessEntities;
 using Aero.MDH.DatabaseAccess.DataServices.Base;
-using Aero.MDH.DatabaseAccess.Savers;
+using Aero.MDH.DatabaseAccess.Savers.Company;
 
 namespace Aero.MDH.DatabaseAccess.DataServices;
 

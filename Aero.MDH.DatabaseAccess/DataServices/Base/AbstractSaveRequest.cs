@@ -16,14 +16,11 @@ public abstract class AbstractSaveRequest<T> where T : AbstractBusinessEntity
 
     public async Task<SaveResult<T>> SaveAsync(CancellationToken cancellationToken = default)
     {
-        foreach (var entity in _entities)
+        foreach (var saver in Savers)
         {
-            foreach (var saver in Savers)
-            {
-                await saver.SaveAsync(entity, _dbContext, cancellationToken);
-            }
+            await saver.SaveAsync(_entities.ToList(), _dbContext, cancellationToken);
         }
-            
+
         await _dbContext.SaveChangesAsync(cancellationToken);
         return new SaveResult<T>(true, savedEntities: _entities.ToList());
     }

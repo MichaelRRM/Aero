@@ -1,9 +1,8 @@
-﻿using Aero.MDH.DatabaseAccess.BusinessEntities;
-using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
+﻿using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
 
 namespace Aero.MDH.DatabaseAccess.DataServices.Base;
 
 public interface IBusinessEntitySaver<T> where T : AbstractBusinessEntity
 {
-    Task SaveAsync(T entity, MdhDbContext dbContext, CancellationToken cancellationToken);
+    Task<SaveResult<T>> SaveAsync(List<T> entities, MdhDbContext dbContext, CancellationToken cancellationToken);
 }

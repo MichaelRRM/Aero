@@ -14,13 +14,13 @@ public abstract class DatedField<T> : DatedField
 
     public override string Code { get; }
 
-    private (T value, DateTime valueDate) _field;
+    private (T value, DateOnly valueDate) _field;
 
     public T Value => _field.value;
-    public DateTime ValueDate => _field.valueDate;
+    public DateOnly ValueDate => _field.valueDate;
     public bool HasValue { get; private set; }
 
-    public void Feed(T value, DateTime valueDate)
+    public void Feed(T value, DateOnly valueDate)
     {
         HasValue = true;
         _field.value = value;
