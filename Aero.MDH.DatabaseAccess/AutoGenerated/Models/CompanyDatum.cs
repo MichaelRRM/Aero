@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Aero.MDH.DatabaseAccess.Models;
 
-public partial class DealDatum : IAuditable
+public partial class CompanyDatum : IAuditable
 {
-    public int DealId { get; set; }
+    public int CompanyId { get; set; }
 
     public DateOnly ValueDate { get; set; }
 
@@ -27,5 +27,5 @@ public partial class DealDatum : IAuditable
 
     public string? AuditUpdateUser { get; set; }
 
-    public virtual DealIdMaster Deal { get; set; } = null!;
+    public virtual CompanyIdMaster Company { get; set; } = null!;
 }
