@@ -1,11 +1,7 @@
 namespace Aero.MDH.DatabaseAccess;
 
-public interface IDataTable
+public interface IDataTable : IDatedTable
 {
-    int Id { get; set; }
-
-    DateOnly ValueDate { get; set; }
-
     string DataCode { get; set; }
 
     string? DataValueTxt { get; set; }

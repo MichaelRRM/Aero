@@ -6,8 +6,6 @@ namespace Aero.MDH.DatabaseAccess.DataServices;
 
 public class CompanySaveRequest : AbstractSaveRequest<CompanyBusinessEntity>
 {
-    private readonly ICompanyGlobalIdSaver _companyGlobalIdSaver;
-    private readonly ICompanyIdSaver _companyIdSaver;
     private readonly ICompanyCodificationSaver _companyCodificationSaver;
     private readonly ICompanyDataSaver _companyDataSaver;
     

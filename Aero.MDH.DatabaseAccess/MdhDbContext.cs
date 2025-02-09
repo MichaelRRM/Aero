@@ -22,6 +22,12 @@ public partial class MdhDbContext : DbContext
             productReferentialDbModel.AuditCreateUser = userName;
             productReferentialDbModel.AuditCreateDate = currentTime;
         }
+        foreach (var item in ChangeTracker.Entries().Where(e => e.State == EntityState.Modified))
+        {
+            if (item.Entity is not IAuditable productReferentialDbModel) continue;
+            productReferentialDbModel.AuditUpdateUser = userName;
+            productReferentialDbModel.AuditUpdateDate = currentTime;
+        }
     }
 
     public override int SaveChanges()

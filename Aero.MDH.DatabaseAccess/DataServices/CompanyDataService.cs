@@ -23,8 +23,6 @@ public class CompanyDataService : ICompanyDataService
 
     public CompanySaveRequest CreateOrUpdate(ICollection<CompanyBusinessEntity> companies)
     {
-        return new CompanySaveRequest(companies, _dbContext, _companyGlobalIdSaver, _companyIdSaver, _companyCodificationSaver, _companyDataSaver)
-            .WithData()
-            .WithCodifications();
+        return new CompanySaveRequest(companies, _dbContext, _companyGlobalIdSaver, _companyIdSaver, _companyCodificationSaver, _companyDataSaver);
     }
 }

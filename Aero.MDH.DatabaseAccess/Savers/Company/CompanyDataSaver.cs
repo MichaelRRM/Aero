@@ -1,14 +1,19 @@
 ﻿using Aero.MDH.DatabaseAccess.BusinessEntities;
+using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
 using Aero.MDH.DatabaseAccess.DataServices.Base;
+using Aero.MDH.DatabaseAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aero.MDH.DatabaseAccess.Savers.Company;
 
-public class CompanyDataSaver : ICompanyDataSaver
+public class CompanyDataSaver : DataModelSaver<CompanyBusinessEntity, CompanyDatum>, ICompanyDataSaver
 {
-    public Task<SaveResult<CompanyBusinessEntity>> SaveAsync(List<CompanyBusinessEntity> entities,
-        MdhDbContext dbContext,
-        CancellationToken cancellationToken)
+    public CompanyDataSaver(MdhDbContext dbContext) : base(dbContext)
     {
-        throw new NotImplementedException();
+    }
+
+    protected override DbSet<CompanyDatum> GetDbSet()
+    {
+        return DbContext.CompanyData;
     }
 }

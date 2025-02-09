@@ -1,4 +1,6 @@
 using Aero.EFront.DataAccess;
+using Aero.MDH.DatabaseAccess.BusinessEntities;
+using Aero.MDH.DatabaseAccess.DataServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -9,12 +11,14 @@ public class CompanyFeeder : AbstractModule
     private readonly IEFrontCompanyDataService _ieFrontCompanyDataService;
     private readonly ILogger<CompanyFeeder> _logger;
     private readonly IConfiguration _configuration;
+    private readonly ICompanyDataService _companyDataService;
 
-    public CompanyFeeder(IEFrontCompanyDataService ieFrontCompanyDataService, ILogger<CompanyFeeder> logger, IConfiguration configuration)
+    public CompanyFeeder(IEFrontCompanyDataService ieFrontCompanyDataService, ILogger<CompanyFeeder> logger, IConfiguration configuration, ICompanyDataService companyDataService)
     {
         _ieFrontCompanyDataService = ieFrontCompanyDataService;
         _logger = logger;
         _configuration = configuration;
+        _companyDataService = companyDataService;
     }
 
     public override string Code => "CompanyFeeder";
@@ -35,8 +39,20 @@ public class CompanyFeeder : AbstractModule
         var companyData = _ieFrontCompanyDataService.GetEFrontCompanies();
         
         // mapping 
+
+        var company1 = new CompanyBusinessEntity();
+        company1.Name.Feed("test1", DateOnly.FromDateTime(DateTime.Today));
+        
+        var company2 = new CompanyBusinessEntity();
+        company2.Name.Feed("test2", DateOnly.FromDateTime(DateTime.Today));
+        
+        var companies = new List<CompanyBusinessEntity>() { company1, company2 };
         
         // insert in db 
+        var savedCompanies = _companyDataService.CreateOrUpdate(companies)
+            .WithCodifications()
+            .WithData()
+            .SaveAsync();
         
         return Task.CompletedTask;
     }
