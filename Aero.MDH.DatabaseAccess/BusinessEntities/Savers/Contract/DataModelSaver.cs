@@ -29,14 +29,14 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
         return newField.DataValueDate == existingField.DataValueDate
                && newField.DataValueInt == existingField.DataValueInt
                && newField.DataValueBit == existingField.DataValueBit
-               && newField.DataValueInt == existingField.DataValueInt;
+               && newField.DataValueTxt == existingField.DataValueTxt;
     }
 
     protected override object GetKeyWithoutValueDate(TDatabaseModel databaseModel)
     {
-        return (databaseModel.Id, databaseModel.DataCode);
+        return (GetId(databaseModel), databaseModel.DataCode);
     }
-
+    
     protected override IEnumerable<TDatabaseModel> ConvertToDatabaseModels(TBusinessEntity businessEntity)
     {
         var databaseModels = new List<TDatabaseModel>();
@@ -103,7 +103,7 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
             SetMatchingDataModelProperty(datedField, databaseModel);
         }
 
-        databaseModel.Id = businessEntity.Id;
+        databaseModel.SetId(businessEntity.Id);
 
         yield return databaseModel;
     }

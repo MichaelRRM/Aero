@@ -17,10 +17,12 @@ public abstract class DatedModelSaver<TBusinessEntity, TDatabaseModel> : IBusine
         DbContext = dbContext;
     }
     
+    protected abstract int GetId(TDatabaseModel databaseModel);
+    
     public async Task<SaveResult<TBusinessEntity>> SaveAsync(List<TBusinessEntity> entities, MdhDbContext dbContext,
         CancellationToken cancellationToken)
     {
-        return await IntegrateAsync(entities, compareToExistingData: false);
+        return await IntegrateAsync(entities, compareToExistingData: true);
     }
 
     private async Task<SaveResult<TBusinessEntity>> IntegrateAsync(List<TBusinessEntity> businessEntities, bool compareToExistingData)
@@ -32,7 +34,7 @@ public abstract class DatedModelSaver<TBusinessEntity, TDatabaseModel> : IBusine
         if (compareToExistingData)
         {
             var initialData = await GetExistingDatabaseModelsAsync(preparationModels);
-            modelIdToExistingData = initialData.ToDictionaryList(i => i.Id);
+            modelIdToExistingData = initialData.ToDictionaryList(GetId);
         }
 
         var newData = new List<TDatabaseModel>();
@@ -78,16 +80,12 @@ public abstract class DatedModelSaver<TBusinessEntity, TDatabaseModel> : IBusine
         return new SaveResult<TBusinessEntity>(true, businessEntities);
     }
 
-    protected virtual async Task<IList<TDatabaseModel>> GetExistingDatabaseModelsAsync(List<PreparationModel> preparationModels)
-    {
-        var ids = preparationModels.Select(p => p.InternalModel.Id).ToHashSet();
-        return await GetDbSet().AsNoTracking().Where(d => ids.Contains(d.Id)).ToListAsync();
-    }
+    protected abstract Task<IList<TDatabaseModel>> GetExistingDatabaseModelsAsync(List<PreparationModel> preparationModels);
 
     protected abstract DbSet<TDatabaseModel> GetDbSet();
     protected abstract IEnumerable<TDatabaseModel> ConvertToDatabaseModels(TBusinessEntity businessEntity);
 
-    protected virtual void HandleUnchangedData(List<TDatabaseModel> unchangedData)
+    protected void HandleUnchangedData(List<TDatabaseModel> unchangedData)
     {
     }
 
@@ -97,7 +95,7 @@ public abstract class DatedModelSaver<TBusinessEntity, TDatabaseModel> : IBusine
     /// <param name="newModels"></param>
     /// <param name="existingModels"></param>
     /// <returns></returns>
-    protected virtual PreparationResult<TDatabaseModel> PrepareIntegration(List<TDatabaseModel> newModels, List<TDatabaseModel> existingModels)
+    protected PreparationResult<TDatabaseModel> PrepareIntegration(List<TDatabaseModel> newModels, List<TDatabaseModel> existingModels)
     {
         var newData = new List<TDatabaseModel>();
         var changedData = new List<TDatabaseModel>();
@@ -170,6 +168,8 @@ public abstract class DatedModelSaver<TBusinessEntity, TDatabaseModel> : IBusine
     protected virtual void DoWhenValueHasChangedButValueDateIsTheSame(TDatabaseModel newField,
         TDatabaseModel lastExistingValue, List<TDatabaseModel> changedData)
     {
+        newField.AuditCreateDate = lastExistingValue.AuditCreateDate;
+        newField.AuditCreateUser = lastExistingValue.AuditCreateUser;
         changedData.Add(newField);
     }
 

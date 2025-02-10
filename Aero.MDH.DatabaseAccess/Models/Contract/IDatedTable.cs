@@ -1,8 +1,9 @@
+using System.Dynamic;
+
 namespace Aero.MDH.DatabaseAccess.Models.Contract;
 
 public interface IDatedTable : IAuditable
 {
-    int Id { get; set; }
-
+    void SetId(int id);
     DateOnly ValueDate { get; set; }
 }

@@ -10,6 +10,14 @@ public class CompanyDataSaver : DataModelSaver<CompanyBusinessEntity, CompanyDat
     {
     }
 
+    protected override int GetId(CompanyDatum databaseModel) => databaseModel.CompanyId;
+
+    protected override async Task<IList<CompanyDatum>> GetExistingDatabaseModelsAsync(List<PreparationModel> preparationModels)
+    {
+        var ids = preparationModels.Select(p => p.InternalModel.Id).ToHashSet();
+        return await GetDbSet().AsNoTracking().Where(d => ids.Contains(d.CompanyId)).ToListAsync();
+    }
+
     protected override DbSet<CompanyDatum> GetDbSet()
     {
         return DbContext.CompanyData;

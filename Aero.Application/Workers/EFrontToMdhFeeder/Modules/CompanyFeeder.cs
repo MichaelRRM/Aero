@@ -41,8 +41,9 @@ public class CompanyFeeder : AbstractModule
         
         // mapping 
 
-        var company1 = new CompanyBusinessEntity(){ CompanyType = "testCompanyType"};
-        company1.Name.Feed("test1", DateOnly.FromDateTime(DateTime.Today));
+        var company1 = new CompanyBusinessEntity(){CompanyType = "testCompanyType"};
+        company1.Name.Feed("test", DateOnly.FromDateTime(DateTime.Today));
+        company1.CompanyCodificationBusinessEntity.DealEFrontCode = "testCodif3";
         
         var company2 = new CompanyBusinessEntity(){ CompanyType = "testCompanyType"};
         company2.Name.Feed("test2", DateOnly.FromDateTime(DateTime.Today));
@@ -51,7 +52,7 @@ public class CompanyFeeder : AbstractModule
         
         // insert in db 
         var savedCompanies = await _companyDataService.CreateOrUpdate(companies)
-            //.WithCodifications()
+            .WithCodifications()
             .WithData()
             .SaveAsync();
         

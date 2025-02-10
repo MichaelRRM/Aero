@@ -5,10 +5,4 @@ namespace Aero.MDH.DatabaseAccess;
 
 public partial class DealDatum : IDataTable
 {
-    [NotMapped]
-    public int Id
-    {
-        get => DealId;
-        set => DealId = value;
-    }
 }

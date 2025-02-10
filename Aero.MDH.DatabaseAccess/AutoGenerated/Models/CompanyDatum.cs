@@ -6,6 +6,11 @@ public partial class CompanyDatum : IAuditable
 {
     public int CompanyId { get; set; }
 
+    public void SetId(int id)
+    {
+        CompanyId = id;
+    }
+
     public DateOnly ValueDate { get; set; }
 
     public string DataCode { get; set; } = null!;

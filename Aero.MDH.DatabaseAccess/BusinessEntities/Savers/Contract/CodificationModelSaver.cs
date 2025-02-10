@@ -17,22 +17,18 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
     public async Task<SaveResult<TBusinessEntity>> SaveAsync(List<TBusinessEntity> entities, MdhDbContext dbContext,
         CancellationToken cancellationToken)
     {
-        return await IntegrateAsync(entities, compareToExistingData: false);
+        return await IntegrateAsync(entities);
     }
 
-    private async Task<SaveResult<TBusinessEntity>> IntegrateAsync(List<TBusinessEntity> businessEntities,
-        bool compareToExistingData)
+    private async Task<SaveResult<TBusinessEntity>> IntegrateAsync(List<TBusinessEntity> businessEntities)
     {
         var modelIdToExistingData = new Dictionary<int, List<Codification>>();
 
         var preparationModels = businessEntities.Select(businessEntity =>
             new PreparationModel(businessEntity, ConvertToDatabaseModels(businessEntity).ToList())).ToList();
-
-        if (compareToExistingData)
-        {
-            var initialData = await GetExistingDatabaseModelsAsync(preparationModels);
-            modelIdToExistingData = initialData.ToDictionaryList(i => i.GlobalId);
-        }
+        
+        var initialData = await GetExistingDatabaseModelsAsync(preparationModels);
+        modelIdToExistingData = initialData.ToDictionaryList(i => i.GlobalId);
 
         var newData = new List<Codification>();
         var changedData = new List<Codification>();
@@ -68,12 +64,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         {
             _dbContext.Codifications.UpdateRange(changedData);
         }
-
-        if (unchangedData.Any())
-        {
-            HandleUnchangedData(unchangedData);
-        }
-
+        
         return new SaveResult<TBusinessEntity>(true, businessEntities);
     }
 
@@ -84,11 +75,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         return await _dbContext.Codifications.AsNoTracking().Where(d => ids.Contains(d.GlobalId)).ToListAsync();
     }
     protected abstract IEnumerable<Codification> ConvertToDatabaseModels(TBusinessEntity businessEntity);
-
-    protected virtual void HandleUnchangedData(List<Codification> unchangedData)
-    {
-    }
-
+    
     /// <summary>
     /// Compares the newModels to the existingModels and splits them into new data, changed data and unchanged data. 
     /// </summary>
@@ -121,7 +108,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
             {
                 if (newField.CodeTxt == lastExistingValue.CodeTxt && newField.CodeNum == lastExistingValue.CodeNum)
                 {
-                    DoWhenValuesAreEqual(newField, lastExistingValue, changedData, unchangedData);
+                    unchangedData.Add(lastExistingValue);
                     continue;
                 }
 
@@ -135,7 +122,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         return preparationResult;
     }
 
-    protected virtual void DoWhenNoPreviousDataExists(Codification newField, List<Codification> newData)
+    private void DoWhenNoPreviousDataExists(Codification newField, List<Codification> newData)
     {
         if (!(newField.CodeTxt == null && newField.CodeNum != null))
         {
@@ -143,7 +130,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         }
     }
 
-    protected virtual void DoWhenValueHasChanged(Codification newField, List<Codification> newData,
+    private void DoWhenValueHasChanged(Codification newField, List<Codification> newData,
         Dictionary<object, SortedList<int, Codification>> keyToSortedExistingModels)
     {
         var lastVersion = keyToSortedExistingModels[GetKeyWithoutValueDate(newField)].Last().Value.VersionId;
@@ -151,13 +138,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         newField.VersionId = lastVersion + 1;
         newData.Add(newField);
     }
-
-    protected virtual void DoWhenValuesAreEqual(Codification newField, Codification lastExistingValue,
-        List<Codification> changedData, List<Codification> unchangedData)
-    {
-        unchangedData.Add(lastExistingValue);
-    }
-
+    
     /// <summary>
     /// Returns the key which will identify database entries which should be compared based on their values  
     /// </summary>
@@ -173,7 +154,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
     {
         if (keyToExistingValues.TryGetValue(GetKeyWithoutValueDate(newValue), out var existingValues))
         {
-            return existingValues.LastOrDefault(a => a.Key <= newValue.VersionId).Value;
+            return existingValues.LastOrDefault().Value;
         }
 
         return null;
