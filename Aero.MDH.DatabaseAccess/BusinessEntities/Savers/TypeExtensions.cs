@@ -8,32 +8,36 @@ namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers;
 
 public static class TypeExtensions
 {
-    private static readonly ConcurrentDictionary<Type, List<DatedFieldProperty>> TypeToTimeShiftingProperty = new();
+    private static readonly ConcurrentDictionary<Type, List<DatedFieldProperty>> TypeToDatedFieldProperty = new();
     
     public static List<DatedFieldProperty> GetDatedFieldProperties(this Type typeToSearch)
     {
-        return TypeToTimeShiftingProperty.GetOrAdd(typeToSearch, HandleGetDatedFieldProperties);
+        return TypeToDatedFieldProperty.GetOrAdd(typeToSearch, HandleGetDatedFieldProperties);
     }
-
-    private static List<DatedFieldProperty> HandleGetDatedFieldProperties(this Type typeToSearch)
-    {
-        var instance = Activator.CreateInstance(typeToSearch);
     
-        return typeToSearch
+    private static List<DatedFieldProperty> HandleGetDatedFieldProperties(Type entityType)
+    {
+        return entityType
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Select(x => (
-                PropertyInfo: x,
-                IsSubAndGenericArguments: x.PropertyType.IsSubclassOfGenericClass(typeof(DatedField<>))
-            ))
-            .Where(x => x.IsSubAndGenericArguments.IsSubclass)
-            .Select(x => {
-                var datedField = (DatedField)x.PropertyInfo.GetValue(instance);
-            
-                return new DatedFieldProperty(
-                    x.PropertyInfo,
-                    x.IsSubAndGenericArguments.GenericArguments[0],
-                    datedField.Code);
+            .Select(x => (PropertyInfo: x, IsSubAndGenericArguments: x.PropertyType.IsSubclassOfGenericClass(typeof(DatedField<>))))
+            .Where(propertyInfoAndIsSubAndGenericArgument => propertyInfoAndIsSubAndGenericArgument.IsSubAndGenericArguments.IsSubclass)
+            .Select(propertyInfoAndIsSubAndGenericArgument => 
+            {
+                var instance = Activator.CreateInstance(entityType);
+                var field = propertyInfoAndIsSubAndGenericArgument.PropertyInfo.GetValue(instance);
+                var dataCode = field?.GetType()
+                    .GetProperty("Code")
+                    ?.GetValue(field)  as string;
+
+                var underlyingType = propertyInfoAndIsSubAndGenericArgument.IsSubAndGenericArguments.GenericArguments?[0];
+                if (underlyingType == null)
+                {
+                    return null;
+                }
+                
+                return new DatedFieldProperty(propertyInfoAndIsSubAndGenericArgument.PropertyInfo, underlyingType, dataCode ?? string.Empty);
             })
+            .OfType<DatedFieldProperty>()
             .ToList();
     }
 }

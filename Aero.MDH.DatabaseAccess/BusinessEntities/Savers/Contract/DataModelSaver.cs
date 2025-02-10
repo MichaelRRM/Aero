@@ -87,8 +87,7 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
         return lambdaExpression.Compile();
     }
 
-    private static TDatabaseModel GetDataBaseModelsFromDatedField<TWrapped>(TBusinessEntity businessEntity,
-        DatedField<TWrapped> datedField)
+    private static TDatabaseModel GetDataBaseModelsFromDatedField<TWrapped>(TBusinessEntity businessEntity, DatedField<TWrapped> datedField)
     {
         var databaseModel = new TDatabaseModel
         {
