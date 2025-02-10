@@ -51,7 +51,7 @@ public class CompanyFeeder : AbstractModule
         
         // insert in db 
         var savedCompanies = await _companyDataService.CreateOrUpdate(companies)
-            .WithCodifications()
+            //.WithCodifications()
             .WithData()
             .SaveAsync();
         

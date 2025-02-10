@@ -40,6 +40,8 @@ public abstract class AbstractSaveRequest<T> where T : AbstractBusinessEntity
             }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
+            
             return new SaveResult<T>(true, savedEntities: _entities.ToList());
         }
         catch (Exception)
