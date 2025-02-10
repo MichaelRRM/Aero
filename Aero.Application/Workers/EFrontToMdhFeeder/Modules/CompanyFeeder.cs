@@ -33,7 +33,7 @@ public class CompanyFeeder : AbstractModule
         description: "The value date used for requesting and inserting company data"
     );
     
-    public override Task RunAsync()
+    public override async Task RunAsync()
     {
         var processDate = ProcessDate.GetValue(_configuration);
         _logger.LogInformation($"Running company Feeder with process date {processDate:yyyy-MM-dd}");
@@ -50,11 +50,11 @@ public class CompanyFeeder : AbstractModule
         var companies = new List<CompanyBusinessEntity>() { company1, company2 };
         
         // insert in db 
-        var savedCompanies = _companyDataService.CreateOrUpdate(companies)
+        var savedCompanies = await _companyDataService.CreateOrUpdate(companies)
             .WithCodifications()
             .WithData()
             .SaveAsync();
         
-        return Task.CompletedTask;
+        return;
     }
 }

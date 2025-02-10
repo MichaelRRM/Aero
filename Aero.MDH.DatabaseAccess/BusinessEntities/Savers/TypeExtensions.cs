@@ -17,6 +17,8 @@ public static class TypeExtensions
 
     private static List<DatedFieldProperty> HandleGetDatedFieldProperties(this Type typeToSearch)
     {
+        var instance = Activator.CreateInstance(typeToSearch);
+    
         return typeToSearch
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
             .Select(x => (
@@ -24,10 +26,14 @@ public static class TypeExtensions
                 IsSubAndGenericArguments: x.PropertyType.IsSubclassOfGenericClass(typeof(DatedField<>))
             ))
             .Where(x => x.IsSubAndGenericArguments.IsSubclass)
-            .Select(x => new DatedFieldProperty(
-                x.PropertyInfo,
-                x.IsSubAndGenericArguments.GenericArguments[0],
-                ((DatedField) Activator.CreateInstance(x.PropertyInfo.PropertyType)).Code))
+            .Select(x => {
+                var datedField = (DatedField)x.PropertyInfo.GetValue(instance);
+            
+                return new DatedFieldProperty(
+                    x.PropertyInfo,
+                    x.IsSubAndGenericArguments.GenericArguments[0],
+                    datedField.Code);
+            })
             .ToList();
     }
 }

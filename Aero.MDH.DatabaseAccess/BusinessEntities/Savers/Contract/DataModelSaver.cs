@@ -60,14 +60,14 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
             .Select(
                 x =>
                 {
-                    var timeShiftingFieldPropertyExpression =
+                    var datedFieldPropertyExpression =
                         Expression.Property(internalModelParameterExpression, x.PropertyInfo.Name);
 
                     var databaseModelsCreationCallExpression = Expression.Call(
-                        typeof(DatedModelSaver<,>),
-                        nameof(GetDataBaseModelsFromTimeShiftingField),
+                        typeof(DataModelSaver<,>),
+                        nameof(GetDataBaseModelsFromDatedField),
                         new[] { x.GenericArgument },
-                        internalModelParameterExpression, timeShiftingFieldPropertyExpression);
+                        internalModelParameterExpression, datedFieldPropertyExpression);
 
                     return databaseModelsCreationCallExpression;
                 }
@@ -87,7 +87,7 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
         return lambdaExpression.Compile();
     }
 
-    private static TDatabaseModel GetDataBaseModelsFromTimeShiftingField<TWrapped>(TBusinessEntity businessEntity,
+    private static TDatabaseModel GetDataBaseModelsFromDatedField<TWrapped>(TBusinessEntity businessEntity,
         DatedField<TWrapped> datedField)
     {
         var databaseModel = new TDatabaseModel

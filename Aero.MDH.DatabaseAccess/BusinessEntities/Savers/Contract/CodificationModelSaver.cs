@@ -77,7 +77,7 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         return new SaveResult<TBusinessEntity>(true, businessEntities);
     }
 
-    protected virtual async Task<IList<Codification>> GetExistingDatabaseModelsAsync(
+    protected async Task<IList<Codification>> GetExistingDatabaseModelsAsync(
         List<PreparationModel> preparationModels)
     {
         var ids = preparationModels.Select(p => p.InternalModel.Id).ToHashSet();

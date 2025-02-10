@@ -11,6 +11,15 @@ public class CompanyCodificationSaver : CodificationModelSaver<CompanyBusinessEn
 
     protected override IEnumerable<Codification> ConvertToDatabaseModels(CompanyBusinessEntity businessEntity)
     {
-        aaa
+        if (businessEntity.CompanyCodificationBusinessEntity.DealEFrontCode != null)
+        {
+            yield return new Codification
+            {
+                GlobalId = businessEntity.Id,
+                CodificationCode = "DEAL_EFRONT_CODE",
+                VersionId = 0,
+                CodeTxt = businessEntity.CompanyCodificationBusinessEntity.DealEFrontCode,
+            };
+        }
     }
 }
