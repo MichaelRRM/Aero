@@ -1,7 +1,7 @@
-using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
 using Aero.MDH.DatabaseAccess.BusinessEntities.DataServices.Base;
+using Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
 
-namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Base;
+namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Contract;
 
 public interface IGlobalIdSaver<TBusinessEntity> where TBusinessEntity : AbstractBusinessEntity
 {

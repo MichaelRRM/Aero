@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using Aero.Base.Extensions;
-using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
-using Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Base;
+using Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
+using Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Contract;
 
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers;
 

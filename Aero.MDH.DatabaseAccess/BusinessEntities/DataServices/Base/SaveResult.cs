@@ -1,4 +1,4 @@
-﻿using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
+﻿using Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
 
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.DataServices.Base;
 

@@ -1,6 +1,7 @@
 using Aero.EFront.DataAccess;
 using Aero.MDH.DatabaseAccess.BusinessEntities;
 using Aero.MDH.DatabaseAccess.BusinessEntities.DataServices;
+using Aero.MDH.DatabaseAccess.BusinessEntities.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -40,10 +41,10 @@ public class CompanyFeeder : AbstractModule
         
         // mapping 
 
-        var company1 = new CompanyBusinessEntity();
+        var company1 = new CompanyBusinessEntity(){ CompanyType = "testCompanyType"};
         company1.Name.Feed("test1", DateOnly.FromDateTime(DateTime.Today));
         
-        var company2 = new CompanyBusinessEntity();
+        var company2 = new CompanyBusinessEntity(){ CompanyType = "testCompanyType"};
         company2.Name.Feed("test2", DateOnly.FromDateTime(DateTime.Today));
         
         var companies = new List<CompanyBusinessEntity>() { company1, company2 };

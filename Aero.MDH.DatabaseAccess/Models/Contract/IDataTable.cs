@@ -1,4 +1,4 @@
-namespace Aero.MDH.DatabaseAccess.Models.Base;
+namespace Aero.MDH.DatabaseAccess.Models.Contract;
 
 public interface IDataTable : IDatedTable
 {

@@ -1,6 +1,6 @@
-﻿using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
+﻿using Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
 
-namespace Aero.MDH.DatabaseAccess.BusinessEntities;
+namespace Aero.MDH.DatabaseAccess.BusinessEntities.Models;
 
 public static class CompanyFields
 {

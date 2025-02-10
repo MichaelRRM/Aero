@@ -1,4 +1,4 @@
-﻿namespace Aero.MDH.DatabaseAccess.BusinessEntities.Base;
+﻿namespace Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
 
 public abstract class AbstractBusinessEntity
 {
