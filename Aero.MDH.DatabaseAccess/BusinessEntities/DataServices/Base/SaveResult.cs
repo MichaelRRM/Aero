@@ -1,6 +1,6 @@
 ﻿using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
 
-namespace Aero.MDH.DatabaseAccess.DataServices.Base;
+namespace Aero.MDH.DatabaseAccess.BusinessEntities.DataServices.Base;
 
 public class SaveResult<T> where T : AbstractBusinessEntity
 {

@@ -2,8 +2,9 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using Aero.Base.Extensions;
 using Aero.MDH.DatabaseAccess.BusinessEntities.Base;
+using Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Base;
 
-namespace Aero.MDH.DatabaseAccess.Savers;
+namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers;
 
 public static class TypeExtensions
 {

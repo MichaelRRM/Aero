@@ -1,6 +1,4 @@
-﻿using Aero.MDH.DatabaseAccess.BusinessEntities;
-
-namespace Aero.MDH.DatabaseAccess.DataServices;
+﻿namespace Aero.MDH.DatabaseAccess.BusinessEntities.DataServices;
 
 public interface ICompanyDataService
 {

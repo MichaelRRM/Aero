@@ -1,4 +1,4 @@
-namespace Aero.MDH.DatabaseAccess;
+namespace Aero.MDH.DatabaseAccess.Models.Base;
 
 public interface IDatedTable : IAuditable
 {

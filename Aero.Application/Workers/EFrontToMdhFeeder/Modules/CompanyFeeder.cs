@@ -1,6 +1,6 @@
 using Aero.EFront.DataAccess;
 using Aero.MDH.DatabaseAccess.BusinessEntities;
-using Aero.MDH.DatabaseAccess.DataServices;
+using Aero.MDH.DatabaseAccess.BusinessEntities.DataServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Aero.MDH.DatabaseAccess.Savers;
+namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Base;
 
 public class DatedFieldProperty
 {
