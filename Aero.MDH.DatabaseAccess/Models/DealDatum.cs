@@ -5,4 +5,8 @@ namespace Aero.MDH.DatabaseAccess.Models;
 
 public partial class DealDatum : IDataTable
 {
+    public void SetId(int id)
+    {
+        DealId = id;
+    }
 }

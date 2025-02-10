@@ -6,11 +6,6 @@ public partial class DealDatum : IAuditable
 {
     public int DealId { get; set; }
 
-    public void SetId(int id)
-    {
-        DealId = id;
-    }
-
     public DateOnly ValueDate { get; set; }
 
     public string DataCode { get; set; } = null!;
