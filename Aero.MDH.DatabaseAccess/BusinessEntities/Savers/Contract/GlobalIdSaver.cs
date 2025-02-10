@@ -17,7 +17,7 @@ public abstract class GlobalIdSaver<TBusinessEntity> : IGlobalIdSaver<TBusinessE
 
     public async Task<SaveResult<TBusinessEntity>> CreateGlobalIdAsync(List<TBusinessEntity> businessEntitiesToCreate)
     {
-        var businessModelsAndGlobalIds = new List<BusinessModelAndGlobalId>();
+        var businessEntityAndGlobalIds = new List<BusinessModelAndGlobalId>();
 
         foreach (var businessEntityToCreate in businessEntitiesToCreate)
         {
@@ -25,18 +25,27 @@ public abstract class GlobalIdSaver<TBusinessEntity> : IGlobalIdSaver<TBusinessE
             {
                 ObjectType = BusinessEntityType,
             };
-            businessModelsAndGlobalIds.Add(new BusinessModelAndGlobalId(businessEntityToCreate, globalId));
+            businessEntityAndGlobalIds.Add(new BusinessModelAndGlobalId(businessEntityToCreate, globalId));
         }
 
-        await _mdhDbContext.GlobalIdMasters.AddRangeAsync(businessModelsAndGlobalIds.Select(bm => bm.GlobalIdMaster));
+        var dbModels = businessEntityAndGlobalIds.Select(bm => bm.GlobalIdMaster).ToList();
 
-        foreach (var businessModelsAndGlobalId in businessModelsAndGlobalIds)
-        {
-            businessModelsAndGlobalId.BusinessEntity.Id = businessModelsAndGlobalId.GlobalIdMaster.GlobalId;
-        }
+        await _mdhDbContext.GlobalIdMasters.AddRangeAsync(dbModels);
+        await _mdhDbContext.SaveChangesAsync();
+
+        //this ensures that business entities get the right id generated from the DB.
+        AssignIdToBusinessEntity(businessEntityAndGlobalIds);
 
         return new SaveResult<TBusinessEntity>(true, businessEntitiesToCreate);
     }
     
+    private static void AssignIdToBusinessEntity(List<BusinessModelAndGlobalId> businessModelsAndGlobalIds)
+    {
+        foreach (var businessModelsAndGlobalId in businessModelsAndGlobalIds)
+        {
+            businessModelsAndGlobalId.BusinessEntity.Id = businessModelsAndGlobalId.GlobalIdMaster.GlobalId;
+        }
+    }
+
     private record BusinessModelAndGlobalId(TBusinessEntity BusinessEntity, GlobalIdMaster GlobalIdMaster);
 }

@@ -22,20 +22,30 @@ public abstract class AbstractSaveRequest<T> where T : AbstractBusinessEntity
 
     public async Task<SaveResult<T>> SaveAsync(CancellationToken cancellationToken = default)
     {
-        var businessEntitiesToCreate = _entities.Where(e => e.Id == 0).ToList();
+        await using var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
 
-        if (businessEntitiesToCreate.Any())
+        try
         {
-            await _globalIdSaver.CreateGlobalIdAsync(businessEntitiesToCreate);
-            await _companyIdSaver.CreateIdMasterAsync(businessEntitiesToCreate);
-        }
+            var businessEntitiesToCreate = _entities.Where(e => e.Id == 0).ToList();
+
+            if (businessEntitiesToCreate.Any())
+            {
+                await _globalIdSaver.CreateGlobalIdAsync(businessEntitiesToCreate);
+                await _companyIdSaver.CreateIdMasterAsync(businessEntitiesToCreate);
+            }
         
-        foreach (var saver in Savers)
-        {
-            await saver.SaveAsync(_entities.ToList(), _dbContext, cancellationToken);
-        }
+            foreach (var saver in Savers)
+            {
+                await saver.SaveAsync(_entities.ToList(), _dbContext, cancellationToken);
+            }
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return new SaveResult<T>(true, savedEntities: _entities.ToList());
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return new SaveResult<T>(true, savedEntities: _entities.ToList());
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync(cancellationToken);
+            throw;
+        }
     }
 }
