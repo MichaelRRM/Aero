@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.EFront.DataAccess", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F77486EA-140D-4B91-AC12-182BC7F98A83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aero.Integration.Tests", "Test\Aero.Integration.Tests\Aero.Integration.Tests.csproj", "{D276FE5A-2AC4-49FC-9E98-8D8A14041EA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{1B97D099-AF20-4495-9CF2-50BBE0519B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B97D099-AF20-4495-9CF2-50BBE0519B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B97D099-AF20-4495-9CF2-50BBE0519B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D276FE5A-2AC4-49FC-9E98-8D8A14041EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D276FE5A-2AC4-49FC-9E98-8D8A14041EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D276FE5A-2AC4-49FC-9E98-8D8A14041EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D276FE5A-2AC4-49FC-9E98-8D8A14041EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{209CF016-EFFC-4D8E-A509-D08B96296D99} = {92E267C6-9465-4C7C-AD24-9124FBBD23D7}
 		{1B97D099-AF20-4495-9CF2-50BBE0519B7D} = {92E267C6-9465-4C7C-AD24-9124FBBD23D7}
 		{BE0FFB19-FDC2-4ADD-A4C1-6E1BBFFD6C48} = {F77486EA-140D-4B91-AC12-182BC7F98A83}
+		{D276FE5A-2AC4-49FC-9E98-8D8A14041EA7} = {F77486EA-140D-4B91-AC12-182BC7F98A83}
 	EndGlobalSection
 EndGlobal
