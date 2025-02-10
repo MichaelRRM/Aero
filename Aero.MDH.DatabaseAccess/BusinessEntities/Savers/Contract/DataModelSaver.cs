@@ -53,8 +53,8 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
     private static Func<TModel, IEnumerable<TDatabaseModel>> BuildGetDatabaseModelsFromInternalModelFunc<TModel>()
         where TModel : TBusinessEntity, new()
     {
-        ParameterExpression internalModelParameterExpression = Expression.Parameter(typeof(TModel), "model");
-
+        ParameterExpression internalModelParameterExpression = Expression.Parameter(typeof(TModel), "businessEntity");
+        
         var allDatabaseModelCreationCallExpressions = typeof(TModel)
             .GetDatedFieldProperties()
             .Select(
@@ -62,12 +62,15 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
                 {
                     var datedFieldPropertyExpression =
                         Expression.Property(internalModelParameterExpression, x.PropertyInfo.Name);
-
+                    
                     var databaseModelsCreationCallExpression = Expression.Call(
-                        typeof(DataModelSaver<,>),
-                        nameof(GetDataBaseModelsFromDatedField),
-                        new[] { x.GenericArgument },
-                        internalModelParameterExpression, datedFieldPropertyExpression);
+                        typeof(DataModelSaver<TBusinessEntity, TDatabaseModel>).GetMethod(
+                            nameof(GetDataBaseModelsFromDatedField), 
+                            BindingFlags.NonPublic | BindingFlags.Static
+                        ).MakeGenericMethod(x.GenericArgument),
+                        internalModelParameterExpression, 
+                        datedFieldPropertyExpression
+                    );
 
                     return databaseModelsCreationCallExpression;
                 }
@@ -87,7 +90,7 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
         return lambdaExpression.Compile();
     }
 
-    private static TDatabaseModel GetDataBaseModelsFromDatedField<TWrapped>(TBusinessEntity businessEntity, DatedField<TWrapped> datedField)
+    private static IEnumerable<TDatabaseModel> GetDataBaseModelsFromDatedField<TWrapped>(TBusinessEntity businessEntity, DatedField<TWrapped> datedField)
     {
         var databaseModel = new TDatabaseModel
         {
@@ -102,7 +105,7 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
 
         databaseModel.Id = businessEntity.Id;
 
-        return databaseModel;
+        yield return databaseModel;
     }
     
     private static void SetMatchingDataModelProperty<TWrapped>(DatedField<TWrapped> datedField, TDatabaseModel databaseModel)
