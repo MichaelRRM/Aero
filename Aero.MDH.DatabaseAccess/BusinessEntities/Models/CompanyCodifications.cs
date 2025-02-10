@@ -1,6 +1,6 @@
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.Models;
 
-public class CompanyCodificationBusinessEntity
+public class CompanyCodifications
 {
     public string? DealEFrontCode { get; set; }
 }
