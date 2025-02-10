@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aero.MDH.DatabaseAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aero.MDH.DatabaseAccess;
 

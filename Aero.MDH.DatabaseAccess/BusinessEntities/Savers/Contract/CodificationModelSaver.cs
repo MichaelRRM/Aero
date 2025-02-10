@@ -1,6 +1,7 @@
 using Aero.Base.Extensions;
 using Aero.MDH.DatabaseAccess.BusinessEntities.DataServices.Base;
 using Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
+using Aero.MDH.DatabaseAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Contract;

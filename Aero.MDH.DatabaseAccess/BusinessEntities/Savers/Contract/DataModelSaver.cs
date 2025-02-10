@@ -62,12 +62,13 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
                 {
                     var datedFieldPropertyExpression =
                         Expression.Property(internalModelParameterExpression, x.PropertyInfo.Name);
+
+                    var method = typeof(DataModelSaver<TBusinessEntity, TDatabaseModel>).GetMethod(
+                        nameof(GetDataBaseModelsFromDatedField),
+                        BindingFlags.NonPublic | BindingFlags.Static) ?? throw new NullReferenceException($"Couldn't create method for type {typeof(TModel).Name}");
                     
                     var databaseModelsCreationCallExpression = Expression.Call(
-                        typeof(DataModelSaver<TBusinessEntity, TDatabaseModel>).GetMethod(
-                            nameof(GetDataBaseModelsFromDatedField), 
-                            BindingFlags.NonPublic | BindingFlags.Static
-                        ).MakeGenericMethod(x.GenericArgument),
+                        method.MakeGenericMethod(x.GenericArgument),
                         internalModelParameterExpression, 
                         datedFieldPropertyExpression
                     );
@@ -76,8 +77,9 @@ public abstract class DataModelSaver<TBusinessEntity, TDatabaseModel> : DatedMod
                 }
             );
 
-        var concatMethodInfo = typeof(Enumerable)
-            .GetMethod(nameof(Enumerable.Concat), BindingFlags.Public | BindingFlags.Static)
+        var method = typeof(Enumerable).GetMethod(nameof(Enumerable.Concat), BindingFlags.Public | BindingFlags.Static) ?? throw new NullReferenceException($"Couldn't create method for type {typeof(TModel).Name}");
+        
+        var concatMethodInfo = method
             .MakeGenericMethod(typeof(TDatabaseModel));
 
         var aggregatedCallExpression =

@@ -1,6 +1,6 @@
 ﻿using Aero.MDH.DatabaseAccess.Models.Contract;
 
-namespace Aero.MDH.DatabaseAccess;
+namespace Aero.MDH.DatabaseAccess.Models;
 
 public partial class CompanyDatum : IAuditable
 {
