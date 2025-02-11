@@ -8,14 +8,14 @@ namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers;
 
 public static class TypeExtensions
 {
-    private static readonly ConcurrentDictionary<Type, List<DatedFieldProperty>> TypeToDatedFieldProperty = new();
+    private static readonly ConcurrentDictionary<Type, List<GenericFieldProperty>> TypeToDatedFieldProperty = new();
     
-    public static List<DatedFieldProperty> GetDatedFieldProperties(this Type typeToSearch)
+    public static List<GenericFieldProperty> GetDatedFieldProperties(this Type typeToSearch)
     {
         return TypeToDatedFieldProperty.GetOrAdd(typeToSearch, HandleGetDatedFieldProperties);
     }
     
-    private static List<DatedFieldProperty> HandleGetDatedFieldProperties(Type entityType)
+    private static List<GenericFieldProperty> HandleGetDatedFieldProperties(Type entityType)
     {
         return entityType
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -35,9 +35,40 @@ public static class TypeExtensions
                     return null;
                 }
                 
-                return new DatedFieldProperty(propertyInfoAndIsSubAndGenericArgument.PropertyInfo, underlyingType, dataCode ?? string.Empty);
+                return new GenericFieldProperty(propertyInfoAndIsSubAndGenericArgument.PropertyInfo, underlyingType, dataCode ?? string.Empty);
             })
-            .OfType<DatedFieldProperty>()
+            .OfType<GenericFieldProperty>()
+            .ToList();
+    }
+    
+    public static List<GenericFieldProperty> GetCodificationFieldProperties(this Type typeToSearch)
+    {
+        return TypeToDatedFieldProperty.GetOrAdd(typeToSearch, HandleGetCodificationFieldProperties);
+    }
+    
+    private static List<GenericFieldProperty> HandleGetCodificationFieldProperties(Type entityType)
+    {
+        return entityType
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Select(x => (PropertyInfo: x, IsSubAndGenericArguments: x.PropertyType.IsSubclassOfGenericClass(typeof(CodificationField<>))))
+            .Where(propertyInfoAndIsSubAndGenericArgument => propertyInfoAndIsSubAndGenericArgument.IsSubAndGenericArguments.IsSubclass)
+            .Select(propertyInfoAndIsSubAndGenericArgument => 
+            {
+                var instance = Activator.CreateInstance(entityType);
+                var field = propertyInfoAndIsSubAndGenericArgument.PropertyInfo.GetValue(instance);
+                var dataCode = field?.GetType()
+                    .GetProperty("Code")
+                    ?.GetValue(field)  as string;
+
+                var underlyingType = propertyInfoAndIsSubAndGenericArgument.IsSubAndGenericArguments.GenericArguments?[0];
+                if (underlyingType == null)
+                {
+                    return null;
+                }
+                
+                return new GenericFieldProperty(propertyInfoAndIsSubAndGenericArgument.PropertyInfo, underlyingType, dataCode ?? string.Empty);
+            })
+            .OfType<GenericFieldProperty>()
             .ToList();
     }
 }

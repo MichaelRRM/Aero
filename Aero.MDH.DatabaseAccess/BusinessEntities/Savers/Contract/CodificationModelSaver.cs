@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using System.Reflection;
 using Aero.Base.Extensions;
 using Aero.MDH.DatabaseAccess.BusinessEntities.DataServices.Base;
 using Aero.MDH.DatabaseAccess.BusinessEntities.Models.Contract;
@@ -6,9 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Contract;
 
-public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntitySaver<TBusinessEntity> where TBusinessEntity : AbstractBusinessEntity, new()
+public abstract class CodificationModelSaver<TBusinessEntity, TCodificationModel> : IBusinessEntitySaver<TBusinessEntity> 
+    where TBusinessEntity : AbstractBusinessEntity, IHasCodification<TCodificationModel>, new() 
+    where TCodificationModel : new()
 {
     private readonly MdhDbContext _dbContext;
+    private static readonly Lazy<Func<TBusinessEntity, IEnumerable<Codification>>>
+        LazyGetDatabaseModelsFromInternalModelFunc = new(BuildGetDatabaseModelsFromInternalModelFunc<TBusinessEntity>);
 
     protected CodificationModelSaver(MdhDbContext dbContext)
     {
@@ -75,7 +81,99 @@ public abstract class CodificationModelSaver<TBusinessEntity> : IBusinessEntityS
         var ids = preparationModels.Select(p => p.InternalModel.Id).ToHashSet();
         return await _dbContext.Codifications.AsNoTracking().Where(d => ids.Contains(d.GlobalId)).ToListAsync();
     }
-    protected abstract IEnumerable<Codification> ConvertToDatabaseModels(TBusinessEntity businessEntity);
+
+    private IEnumerable<Codification> ConvertToDatabaseModels(TBusinessEntity businessEntity)
+    {
+        var databaseModels = new List<Codification>();
+        Feed(databaseModels, businessEntity);
+
+        return databaseModels;
+    }
+    
+    private static Func<TBusinessEntityType, IEnumerable<Codification>> BuildGetDatabaseModelsFromInternalModelFunc<TBusinessEntityType>()
+        where TBusinessEntityType : AbstractBusinessEntity, IHasCodification<TCodificationModel>, new()
+    {
+        ParameterExpression internalModelParameterExpression = Expression.Parameter(typeof(TBusinessEntityType), "businessEntity");
+        
+        var allDatabaseModelCreationCallExpressions = typeof(TCodificationModel)
+            .GetCodificationFieldProperties()
+            .Select(
+                x =>
+                {
+                    var codificationModelExpression = Expression.Property(internalModelParameterExpression, nameof(IHasCodification<TCodificationModel>.Codifications));
+                    
+                    var codificationFieldPropertyExpression =
+                        Expression.Property(codificationModelExpression, x.PropertyInfo.Name);
+
+                    var method = typeof(CodificationModelSaver<TBusinessEntity, TCodificationModel>).GetMethod(
+                        nameof(GetDataBaseModelsFromCodificationField),
+                        BindingFlags.NonPublic | BindingFlags.Static) ?? throw new NullReferenceException($"Couldn't create method for type {typeof(TCodificationModel).Name}");
+                    
+                    var databaseModelsCreationCallExpression = Expression.Call(
+                        method.MakeGenericMethod(x.GenericArgument),
+                        internalModelParameterExpression, 
+                        codificationFieldPropertyExpression
+                    );
+
+                    return databaseModelsCreationCallExpression;
+                }
+            );
+
+        var method = typeof(Enumerable).GetMethod(nameof(Enumerable.Concat), BindingFlags.Public | BindingFlags.Static) ?? throw new NullReferenceException($"Couldn't create method for type {typeof(TCodificationModel).Name}");
+        
+        var concatMethodInfo = method
+            .MakeGenericMethod(typeof(Codification));
+
+        var aggregatedCallExpression =
+            allDatabaseModelCreationCallExpressions.Aggregate((x, y) => Expression.Call(null, concatMethodInfo, x, y));
+
+        var lambdaExpression =
+            Expression.Lambda<Func<TBusinessEntityType, IEnumerable<Codification>>>(aggregatedCallExpression,
+                internalModelParameterExpression);
+
+        return lambdaExpression.Compile();
+    }
+
+    private static IEnumerable<Codification> GetDataBaseModelsFromCodificationField<TWrapped>(TBusinessEntity businessEntity, CodificationField<TWrapped> codificationField)
+    {
+        var databaseModel = new Codification
+        {
+            CodificationCode = codificationField.Code,
+        };
+
+        if (codificationField.Value != null)
+        {
+            SetMatchingDataModelProperty(codificationField, databaseModel);
+        }
+
+        databaseModel.GlobalId = businessEntity.Id;
+
+        yield return databaseModel;
+    }
+    
+    private static void SetMatchingDataModelProperty<TWrapped>(CodificationField<TWrapped> codificationField, Codification databaseModel)
+    {
+        switch (codificationField.Value)
+        {
+            case int intWrappedType:
+            {
+                databaseModel.CodeNum = intWrappedType;
+                break;
+            }
+            case string stringWrappedType:
+            {
+                databaseModel.CodeTxt = stringWrappedType;
+                break;
+            }
+            default:
+                throw new NotImplementedException($"Type of {codificationField.Value} is not supported");
+        }
+    }
+    
+    private void Feed(List<Codification> databaseModels, TBusinessEntity businessEntity)
+    {
+        databaseModels.AddRange(LazyGetDatabaseModelsFromInternalModelFunc.Value(businessEntity));
+    }
     
     /// <summary>
     /// Compares the newModels to the existingModels and splits them into new data, changed data and unchanged data. 

@@ -2,7 +2,7 @@
 
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.Models;
 
-public class CompanyBusinessEntity : AbstractBusinessEntity
+public class CompanyBusinessEntity : AbstractBusinessEntity, IHasCodification<CompanyCodifications>
 {
     public string? CompanyType { get; set; }
     public CompanyCodifications Codifications { get; } = new();

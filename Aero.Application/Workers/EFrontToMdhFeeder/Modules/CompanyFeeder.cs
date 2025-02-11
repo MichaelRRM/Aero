@@ -43,7 +43,7 @@ public class CompanyFeeder : AbstractModule
 
         var company1 = new CompanyBusinessEntity(){CompanyType = "testCompanyType"};
         company1.Name.Feed("test", DateOnly.FromDateTime(DateTime.Today));
-        company1.Codifications.DealEFrontCode = "testCodif3";
+        company1.Codifications.DealEFrontCode.Feed("testCodif3");
         
         var company2 = new CompanyBusinessEntity(){ CompanyType = "testCompanyType"};
         company2.Name.Feed("test2", DateOnly.FromDateTime(DateTime.Today));

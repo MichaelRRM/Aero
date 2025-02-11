@@ -2,9 +2,9 @@ using System.Reflection;
 
 namespace Aero.MDH.DatabaseAccess.BusinessEntities.Savers.Contract;
 
-public class DatedFieldProperty
+public class GenericFieldProperty
 {
-    public DatedFieldProperty(PropertyInfo propertyInfo, Type genericArgument, string code)
+    public GenericFieldProperty(PropertyInfo propertyInfo, Type genericArgument, string code)
     {
         PropertyInfo = propertyInfo;
         GenericArgument = genericArgument;

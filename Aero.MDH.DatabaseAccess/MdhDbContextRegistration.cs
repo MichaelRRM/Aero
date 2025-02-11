@@ -19,6 +19,7 @@ public static class MdhDbContextRegistration
         });
 
         services.AddScoped<ICompanyDataService, CompanyDataService>();
+        services.AddScoped<ICodificationDataService, CodificationDataService>();
 
         services.AddScoped<ICompanyGlobalIdSaver, CompanyGlobalIdSaver>();
         services.AddScoped<ICompanyIdSaver, CompanyCompanyIdSaver>();
